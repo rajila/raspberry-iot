@@ -5,7 +5,7 @@
  * gcc -Wall -o <nombre> <nombre>.c -lwiringPi
  * sudo ./<nombre>
  *
- * Link ayuda:
+ * Link ayuda: https://www.admfactory.com/breathing-light-led-on-raspberry-pi-using-c/
  * */
 
 #define LRED 1
