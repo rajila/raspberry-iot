@@ -3,6 +3,8 @@
 #include <softPwm.h>
 
 /**
+ * gcc -Wall -o <nombre> <nombre>.c -lwiringPi
+ * sudo ./<nombre>
  * https://www.admfactory.com/rgb-led-on-raspberry-pi-using-c/
  *
  */
