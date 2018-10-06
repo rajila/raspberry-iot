@@ -30,7 +30,7 @@ void ledOff()
 	softPwmWrite(LBLUE,RMIN);
 }
 
-void pwdLed(int ledPin)
+void softPwdLed(int ledPin)
 {
 	for(int i=0;i<RMAX;i++)
 	{
@@ -45,11 +45,11 @@ int main(void)
 	init();
 	for(;;)
 	{
-		pwdLed(LRED);
+		softPwdLed(LRED);
 		ledOff(); delay(500);
-		pwdLed(LGREEN);
+		softPwdLed(LGREEN);
 		ledOff(); delay(500);
-		pwdLed(LBLUE);
+		softPwdLed(LBLUE);
 		ledOff(); delay(500);
 	}
 	return 0;
