@@ -54,11 +54,14 @@ int main(void)
 {
 	wiringPiSetup();
 	init();
+	printf("Colors: %d",sizeof(colors));printf("\n");
+	printf("Int: %d",sizeof(int));printf("\n");
 	for(;;)
 	{
-		for(int i=0; sizeof(colors)/sizeof(int); i++)
+		for(int i=0; i<sizeof(colors)/sizeof(int); i++)
 		{
 			ledColorSet(colors[i]);
+			printf("%d -> %d:%X",i,colors[i],colors[i]);printf("\n");
 			delay(1000);
 		}
 	}
