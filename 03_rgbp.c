@@ -10,8 +10,8 @@
  */
 
 #define LRED 1 // GPIO18
-#define LBLUE 4 // GPIO23
-#define LGREEN 5 // GPIO24
+#define LBLUE 5 // GPIO24
+#define LGREEN 4 // GPIO23
 
 #define RMIN 0
 #define RMAX 100
