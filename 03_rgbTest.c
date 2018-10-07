@@ -26,9 +26,10 @@ void init()
 
 void randCycle()
 {
-	softPwmWrite(LRED,rand()%(RMIN-RMAX+1)+RMAX);
-	softPwmWrite(LGREEN,rand()%(RMIN-RAMX+1)+RMAX);
-	softPwmWrite(LBLUE,rand()%(RMIN-RMAX+1)+RMAX);
+	srand(time(NULL));
+	softPwmWrite(LRED,rand()%(RMAX-RMIN+1)+RMIN);
+	softPwmWrite(LGREEN,rand()%(RMAX-RMIN+1)+RMIN);
+	softPwmWrite(LBLUE,rand()%(RMAX-RMIN+1)+RMIN);
 	delay(500);
 }
 
