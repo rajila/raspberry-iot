@@ -50,6 +50,13 @@ int main(int argc, char **argv)
 		else
 		{
 			/* Humidity is located in first two bytes */
+			//printf("buf-0: %u\n",buf[0]);
+			//printf("buf-0: %X\n",buf[0]);
+			//printf("Val buf-0 0xC0: %u\n",buf[0] & 0xC0);
+			//printf("Hex buf-0 0xC0: %X\n",buf[0] & 0xC0);
+			//int _state = buf[0] & 0xC0;
+			//printf("Estado: %d\n",_state);
+			if((buf[0] & 0xC0) == 0){	
 			int reading_hum = (buf[0] << 8) + buf[1];
 			double humidity = reading_hum / 16382.0 * 100.0;
 			printf("Humidity: %f\n", humidity);
@@ -58,6 +65,7 @@ int main(int argc, char **argv)
 			int reading_temp = (buf[2] << 6) + (buf[3] >> 2);
 			double temperature = reading_temp / 16382.0 * 165.0 - 40;
 			printf("Temperature: %f\n", temperature);
+			}else printf("Error, el estado es diferente de 0\n");
 		}
 	}
 
