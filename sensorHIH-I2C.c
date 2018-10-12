@@ -1,3 +1,17 @@
+/**
+ * Links: 
+ *      https://github.com/karlrupp/i2cHoneywellHumidity/blob/master/i2cHoneywellHumidity.c
+ *      https://poesiabinaria.net/2012/06/obtener-la-fecha-y-hora-formateada-en-c/
+ *      http://rants.dyer.com.hk/rpi/humidity_i2c.html
+ *		
+ * Conexion del Sensor al Raspberry Pi
+ *   SENSOR       RASPBERRY
+ * VDD(1)    -->    3V3 (NumPin: 17)
+ * VSS(2)    -->    GND (NumPin: 9)
+ * SCL(3)    -->    GPIO3 (NumPin: 5)
+ * SDA(4)    -->	GPIO2 (NumPin: 3)
+ */
+ 
 #include <stdio.h>
 #include <stdlib.h>
 #include <linux/i2c-dev.h>
@@ -16,11 +30,11 @@
 #define RMINHUM 40.0
 #define RMAXHUM 70.0
 
-#define LRED 1 // GPIO18
+#define LRED 1 // GPIO18 (NumPin: 12)
 
-#define RGBGREEN 4 // GPIO23
-#define RGBBLUE 5 // GPIO24
-#define RGBRED 6 // GPIO25
+#define RGBGREEN 4 // GPIO23 (NumPin: 16)
+#define RGBBLUE 5 // GPIO24 (NumPin: 18)
+#define RGBRED 6 // GPIO25 (NumPin: 22)
 
 int _fileDescriptor; // File descriptor
 const char *_fileNamePort = "/dev/i2c-1"; // Name of the port we will be using. On Raspberry 2 this is i2c-1, on an older Raspberry Pi 1 this might be i2c-0.
