@@ -52,7 +52,7 @@ int main(int argc, char **argv)
 		_t = time(NULL);	
 		_tm = localtime(&_t);
 		strftime(_dateTime,100,"%d/%m/%Y %H:%M:%S", _tm);
-		printf ("Hoy es: %s\n", _dateTime);
+		printf ("%s\n", _dateTime);
 		
 		/* read back data */
 		if (read(fd, buf, 4) < 0)
@@ -71,14 +71,14 @@ int main(int argc, char **argv)
 			//printf("Estado: %d\n",_state);
 			if((buf[0] & 0xC0) == 0)
 			{	
-				int reading_hum = (buf[0] << 8) + buf[1];
-				double humidity =((reading_hum / 16382.0 * 100.0)*100.0)/100.0;
-				printf("Humidity: %f\n", humidity);
-
 				/* Temperature is located in next two bytes, padded by two trailing bits */
 				int reading_temp = (buf[2] << 6) + (buf[3] >> 2);
-				double temperature = ((reading_temp / 16382.0 * 165.0 - 40)*100.0)/100.0;
-				printf("Temperature: %f\n\n", temperature);
+				double temperature = reading_temp / 16382.0 * 165.0 - 40;
+				printf("Temperatura: %.1f\n\n", temperature);
+				
+				int reading_hum = (buf[0] << 8) + buf[1];
+				double humidity =reading_hum / 16382.0 * 100.0;
+				printf("Humedad(%): %.1f\n", humidity);
 			}else 
 				printf("Error, el estado es diferente de 0\n");
 		}
