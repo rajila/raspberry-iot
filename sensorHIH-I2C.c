@@ -37,6 +37,7 @@ int main(int argc, char **argv)
 	char _dateTime[100];
 	
 	wiringPiSetup();
+	init();
 
 	/* Open port (r/w) */
 	if ((fd = open(fileName, O_RDWR)) < 0)
