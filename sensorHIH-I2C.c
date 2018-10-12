@@ -142,8 +142,8 @@ int main(int argc, char **argv)
 				printf("Temperatura%s: %.1f\n", "(?C)", _temperaturaCal);
 				printf("Humedad%s: %.1f\n\n", "(%)", _humedadCal);
 				
-				procesarTemperatura((int)temperature);
-				procesarHumedad((int)humidity);
+				procesarTemperatura((int)_temperaturaCal);
+				procesarHumedad((int)_humedadCal);
 			}else 
 				printf("Error, el Estado es != 0\n");
 		}
