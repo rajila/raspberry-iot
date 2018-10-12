@@ -7,6 +7,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <time.h>
 
 int main(int argc, char **argv)
 {
@@ -14,6 +15,9 @@ int main(int argc, char **argv)
 	const char *fileName = "/dev/i2c-1";  /* Name of the port we will be using. On Raspberry 2 this is i2c-1, on an older Raspberry Pi 1 this might be i2c-0.*/
 	int  address = 0x27;                  /* Address of Honeywell sensor shifted right 1 bit */
 	unsigned char buf[4];                 /* Buffer for data read/written on the i2c bus */
+	time_t _t;
+	struct tm *_tm;
+	char _dateTime[100];
 
 	/* Open port (r/w) */
 	if ((fd = open(fileName, O_RDWR)) < 0)
@@ -41,6 +45,10 @@ int main(int argc, char **argv)
 		 Typical measurement cycle is 36.65ms for each of humidity and temperature, so you may reduce this to 74ms. */
 		usleep(100000);
 
+		_t = time(NULL);
+		_tm = localtime(&_t);
+		strftime(_dateTime,)
+		strftime()
 		/* read back data */
 		if (read(fd, buf, 4) < 0)
 		{
