@@ -139,7 +139,7 @@ int main(int argc, char **argv)
 				_lecturaTemperatura = (_data[2] << 6) + (_data[3] >> 2);
 				_temperaturaCal = _lecturaTemperatura / 16382.0 * 165.0 - 40;
 				
-				printf("Temperatura%s: %.1f\n", "(?C)", _temperaturaCal);
+				printf("Temperatura%s: %.1f\n", "(C)", _temperaturaCal);
 				printf("Humedad%s: %.1f\n\n", "(%)", _humedadCal);
 				
 				procesarTemperatura((int)_temperaturaCal);
