@@ -32,8 +32,12 @@ int main(int argc, char **argv)
 		printf("Unable to get bus access to talk to slave\n");
 		exit(1);
 	}
+	
+	_t = time(NULL);
+	_tm = localtime(&_t);
 
-	for(;;){
+	for(;;)
+	{
 		/* Initiate measurement by sending a zero bit (see datasheet for communication pattern) */
 		if ((write(fd,buf,0)) != 0)
 		{
@@ -45,10 +49,9 @@ int main(int argc, char **argv)
 		 Typical measurement cycle is 36.65ms for each of humidity and temperature, so you may reduce this to 74ms. */
 		usleep(100000);
 
-		_t = time(NULL);
-		_tm = localtime(&_t);
-		strftime(_dateTime,)
-		strftime()
+		strftime(_dateTime,100,"%d/%m/%Y", _tm);
+		printf ("Hoy es: %s\n", _dateTime);
+		
 		/* read back data */
 		if (read(fd, buf, 4) < 0)
 		{
@@ -64,16 +67,18 @@ int main(int argc, char **argv)
 			//printf("Hex buf-0 0xC0: %X\n",buf[0] & 0xC0);
 			//int _state = buf[0] & 0xC0;
 			//printf("Estado: %d\n",_state);
-			if((buf[0] & 0xC0) == 0){	
-			int reading_hum = (buf[0] << 8) + buf[1];
-			double humidity = reading_hum / 16382.0 * 100.0;
-			printf("Humidity: %f\n", humidity);
+			if((buf[0] & 0xC0) == 0)
+			{	
+				int reading_hum = (buf[0] << 8) + buf[1];
+				double humidity = reading_hum / 16382.0 * 100.0;
+				printf("Humidity: %f\n", humidity);
 
-			/* Temperature is located in next two bytes, padded by two trailing bits */
-			int reading_temp = (buf[2] << 6) + (buf[3] >> 2);
-			double temperature = reading_temp / 16382.0 * 165.0 - 40;
-			printf("Temperature: %f\n", temperature);
-			}else printf("Error, el estado es diferente de 0\n");
+				/* Temperature is located in next two bytes, padded by two trailing bits */
+				int reading_temp = (buf[2] << 6) + (buf[3] >> 2);
+				double temperature = reading_temp / 16382.0 * 165.0 - 40;
+				printf("Temperature: %f\n", temperature);
+			}else 
+				printf("Error, el estado es diferente de 0\n");
 		}
 	}
 
