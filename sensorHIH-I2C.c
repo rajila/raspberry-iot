@@ -12,7 +12,7 @@
 #include <softPwm.h>
 #include <math.h>
 
-#define PIVOTETEMP 27
+#define PIVOTETEMP 27.0
 #define LRED 1 // GPIO18
 
 void init()
@@ -22,7 +22,7 @@ void init()
 
 void procesarTemperatura(int temperatura)
 {
-	if( temperatura > PIVOTETEMP) digitalWrite(LRED,HIGH);
+	if( temperatura >= PIVOTETEMP) digitalWrite(LRED,HIGH);
 	else digitalWrite(LRED,LOW);
 }
 
