@@ -13,7 +13,7 @@
 #include <math.h>
 
 #define PIVOTETEMP 27.0
-#define RMINHUM 40.0
+#define RMINHUM 65.0
 #define RMAXHUM 70.0
 
 #define LRED 1 // GPIO18
