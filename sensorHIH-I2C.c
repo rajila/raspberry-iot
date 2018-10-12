@@ -13,17 +13,47 @@
 #include <math.h>
 
 #define PIVOTETEMP 27.0
+#define RMINHUM 40.0
+#define RMAXHUM 70.0
+
 #define LRED 1 // GPIO18
+
+#define RGBGREEN 4 // GPIO23
+#define RGBBLUE 5 // GPIO24
+#define RGBRED 6 // GPIO25
 
 void init()
 {
+	wiringPiSetup();
+	
 	pinMode(LRED, OUTPUT);
+	pinMode(RGBGREEN, OUTPUT);
+	pinMode(RGBBLUE, OUTPUT);
+	pinMode(RGBRED, OUTPUT);
 }
 
 void procesarTemperatura(int temperatura)
 {
 	if( temperatura >= PIVOTETEMP) digitalWrite(LRED,HIGH);
 	else digitalWrite(LRED,LOW);
+}
+
+void procesarHumedad(int humedad)
+{
+	if( humedad < RMINHUM )
+	{
+		digitalWrite(RGBRED,HIGH);
+		digitalWrite(RGBGREEN,LOW);
+		digitalWrite(RGBBLUE,LOW);
+	}else if( humedad >= RMINHUM && humedad <= RMAXHUM ){
+		digitalWrite(RGBGREEN,HIGH);
+		digitalWrite(RGBRED,LOW);
+		digitalWrite(RGBBLUE,LOW);
+	}else{
+		digitalWrite(RGBBLUE,HIGH);
+		digitalWrite(RGBRED,LOW);
+		digitalWrite(RGBGREEN,LOW);
+	}
 }
 
 int main(int argc, char **argv)
@@ -36,7 +66,6 @@ int main(int argc, char **argv)
 	struct tm *_tm;
 	char _dateTime[100];
 	
-	wiringPiSetup();
 	init();
 
 	/* Open port (r/w) */
@@ -98,6 +127,7 @@ int main(int argc, char **argv)
 				printf("Humedad%s: %.1f\n\n","(%)", humidity);
 				
 				procesarTemperatura((int)temperature);
+				procesarHumedad((int)humidity);
 			}else 
 				printf("Error, el estado es diferente de 0\n");
 		}
