@@ -22,8 +22,8 @@ void init()
 
 void procesarTemperatura(int temperatura)
 {
-	if( temperatura >= PIVOTETEMP) digitalWrite(LRED,LOW);
-	else digitalWrite(LRED,HIGH);
+	if( temperatura > PIVOTETEMP) digitalWrite(LRED,HIGH);
+	else digitalWrite(LRED,LOW);
 }
 
 int main(int argc, char **argv)
