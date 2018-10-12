@@ -10,7 +10,6 @@
 #include <time.h>
 #include <wiringPi.h>
 #include <softPwm.h>
-#include <math.h>
 
 int main(int argc, char **argv)
 {
@@ -72,12 +71,12 @@ int main(int argc, char **argv)
 			if((buf[0] & 0xC0) == 0)
 			{	
 				int reading_hum = (buf[0] << 8) + buf[1];
-				double humidity =round((reading_hum / 16382.0 * 100.0)*100)/100;
+				double humidity =((reading_hum / 16382.0 * 100.0)*10)/10;
 				printf("Humidity: %f\n", humidity);
 
 				/* Temperature is located in next two bytes, padded by two trailing bits */
 				int reading_temp = (buf[2] << 6) + (buf[3] >> 2);
-				double temperature = round((reading_temp / 16382.0 * 165.0 - 40)*100)/100;
+				double temperature = ((reading_temp / 16382.0 * 165.0 - 40)*10)/10;
 				printf("Temperature: %f\n\n", temperature);
 			}else 
 				printf("Error, el estado es diferente de 0\n");
