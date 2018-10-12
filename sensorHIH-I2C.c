@@ -12,6 +12,20 @@
 #include <softPwm.h>
 #include <math.h>
 
+#define PIVOTETEMP 27
+#define LRED 1 // GPIO18
+
+void init()
+{
+	pinMode(LRED, OUTPUT);
+}
+
+void procesarTemperatura(int temperatura)
+{
+	if( temperatura >= PIVOTETEMP) digitalWrite(LRED,HIGH);
+	else digitalWrite(LRED,LOW);
+}
+
 int main(int argc, char **argv)
 {
 	int fd;                               /* File descriptor*/
@@ -21,6 +35,8 @@ int main(int argc, char **argv)
 	time_t _t;
 	struct tm *_tm;
 	char _dateTime[100];
+	
+	wiringPiSetup();
 
 	/* Open port (r/w) */
 	if ((fd = open(fileName, O_RDWR)) < 0)
@@ -79,6 +95,8 @@ int main(int argc, char **argv)
 				int reading_hum = (buf[0] << 8) + buf[1];
 				double humidity =reading_hum / 16382.0 * 100.0;
 				printf("Humedad%s: %.1f\n\n","(%)", humidity);
+				
+				procesarTemperatura((int)temperature);
 			}else 
 				printf("Error, el estado es diferente de 0\n");
 		}
