@@ -74,11 +74,11 @@ int main(int argc, char **argv)
 				/* Temperature is located in next two bytes, padded by two trailing bits */
 				int reading_temp = (buf[2] << 6) + (buf[3] >> 2);
 				double temperature = reading_temp / 16382.0 * 165.0 - 40;
-				printf("Temperatura: %.1f\n\n", temperature);
+				printf("Temperatura ºC: %.1f\n\n", temperature);
 				
 				int reading_hum = (buf[0] << 8) + buf[1];
 				double humidity =reading_hum / 16382.0 * 100.0;
-				printf("Humedad [%]: %.1f\n", humidity);
+				printf("Humedad \%: %.1f\n", humidity);
 			}else 
 				printf("Error, el estado es diferente de 0\n");
 		}
