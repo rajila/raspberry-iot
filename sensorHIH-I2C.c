@@ -4,12 +4,16 @@
  *      https://poesiabinaria.net/2012/06/obtener-la-fecha-y-hora-formateada-en-c/
  *      http://rants.dyer.com.hk/rpi/humidity_i2c.html
  *		
- * Conexion del Sensor al Raspberry Pi
+ * Conexion del Sensor HIH al Raspberry Pi
  *   SENSOR       RASPBERRY
  * VDD(1)    -->    3V3 (NumPin: 17)
  * VSS(2)    -->    GND (NumPin: 9)
  * SCL(3)    -->    GPIO3 (NumPin: 5)
  * SDA(4)    -->	GPIO2 (NumPin: 3)
+ *
+ * Compilar: gcc -Wall -o <nombre> <nombre>.c -lwiringPi
+ * Ejecutar: sudo ./<nombre>
+ *
  */
  
 #include <stdio.h>
