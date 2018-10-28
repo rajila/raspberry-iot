@@ -117,6 +117,7 @@ static void *updateDateDisplay(void *data)
 		genieWriteObj(GENIE_OBJ_LED_DIGITS, 0x02, _tmDisplay->tm_min);
 		genieWriteObj(GENIE_OBJ_LED_DIGITS, 0x03, _tmDisplay->tm_sec);
 	}
+	return NULL;
 }
 
 
