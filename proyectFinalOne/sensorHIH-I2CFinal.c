@@ -167,6 +167,23 @@ void procesarHumedad(int humedad)
 	}
 }
 
+//This is the event handler. Messages received from the display
+//are processed here.
+void handleGenieEvent(struct genieReplyStruct * reply)
+{
+  	if(reply->cmd == GENIE_REPORT_EVENT)    //check if the cmd byte is a report event
+  	{
+    	if(reply->object == GENIE_OBJ_KNOB) //check if the object byte is that of a slider
+      	{
+        	//if(reply->index == 0)		  //check if the index byte is that of Slider0	
+          	//	genieWriteObj(GENIE_OBJ_LED_DIGITS, 0x00, reply->data); //write to the LED digits object
+			printf("Resultado knob: %d\n",reply->data);
+      	}
+  	} 
+  	else //if the received message is not a report event, print a message on the terminal window
+    	printf("Unhandled event: command: %2d, object: %2d, index: %d, data: %d \r\n", reply->cmd, reply->object, reply->index, reply->data);
+}
+
 int main(int argc, char **argv)
 {	
 	loadConfiguration();
@@ -220,7 +237,7 @@ int main(int argc, char **argv)
 		while(genieReplyAvail())      //check if a message is available
     	{
       		genieGetReply(&_dataDisplay);      //take out a message from the events buffer
-      		//handleGenieEvent(&_dataDisplay);   //call the event handler to process the message
+      		handleGenieEvent(&_dataDisplay);   //call the event handler to process the message
     	}	
     	usleep(10000);                //10-millisecond delay.Don't hog the CPU in case anything else is happening
 	}
