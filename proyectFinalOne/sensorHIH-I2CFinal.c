@@ -113,9 +113,9 @@ static void *updateDateDisplay(void *data)
 		_tDisplay = time(NULL);
 		_tmDisplay = localtime(&_tDisplay);
 
-		genieWriteObj(GENIE_OBJ_LED_DIGITS, 0x01, _tmDisplay.tm_hour);
-		genieWriteObj(GENIE_OBJ_LED_DIGITS, 0x02, _tmDisplay.tm_min);
-		genieWriteObj(GENIE_OBJ_LED_DIGITS, 0x03, _tmDisplay.tm_sec);
+		genieWriteObj(GENIE_OBJ_LED_DIGITS, 0x01, _tmDisplay->tm_hour);
+		genieWriteObj(GENIE_OBJ_LED_DIGITS, 0x02, _tmDisplay->tm_min);
+		genieWriteObj(GENIE_OBJ_LED_DIGITS, 0x03, _tmDisplay->tm_sec);
 	}
 }
 
