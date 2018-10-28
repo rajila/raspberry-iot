@@ -67,7 +67,7 @@ double _humedadCal;
 // Variables para Display 4D System
 pthread_t _updateDateDisplay;
 struct genieReplyStruct _dataDisplay;
-const char *_fileNamePortDisplay = "/dev/serial0";
+char *_fileNamePortDisplay = "/dev/serial0";
 
 /**
  * Funcion que define el estado de los PINs como salida.
