@@ -148,7 +148,7 @@ void processHumidity(int humedad)
 	}
 }
 
-void printLog(int temperature, int humidity)
+void printLog(double temperature, double humidity)
 {
 	printf("Temperature%s: %.1f\n", "(C)", temperature);
 	printf("Humidity%s: %.1f\n\n", "(%)", humidity);
@@ -205,7 +205,7 @@ static void *getDataSensor(void *data)
 				_lecturaTemperatura = (_data[2] << 6) + (_data[3] >> 2);
 				_temperaturaCal = _lecturaTemperatura / 16382.0 * 165.0 - 40;
 
-				printLog((int)_temperaturaCal, (int)_humedadCal);
+				printLog(_temperaturaCal, _humedadCal);
 				//processTemperature((int)_temperaturaCal);
 				//processHumidity((int)_humedadCal);
 			}else 
