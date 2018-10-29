@@ -37,7 +37,7 @@
 
 #define BAUDRATE 9600
 
-#define PIVOTETEMP 27.0
+//#define PIVOTETEMP 27.0
 #define RMINHUM 40.0
 #define RMAXHUM 70.0
 
@@ -65,9 +65,11 @@ double _temperaturaCal;
 double _humedadCal;
 
 // Variables para Display 4D System
-pthread_t _updateDateDisplay;
+pthread_t _updateTimeDisplay;
+pthread_t _getDataSensor;
 struct genieReplyStruct _dataDisplay;
 char *_fileNamePortDisplay = "/dev/serial0";
+int _threshold = 27;
 
 /**
  * Funcion que define el estado de los PINs como salida.
@@ -78,6 +80,8 @@ void init()
 	pinMode(RGBGREEN, OUTPUT);
 	pinMode(RGBBLUE, OUTPUT);
 	pinMode(RGBRED, OUTPUT);
+
+	genieWriteObj(GENIE_OBJ_LED_DIGITS, 0x00, _threshold); //Inicializa el valor en 27
 }
 
 void loadConfiguration()
@@ -103,29 +107,6 @@ void loadConfiguration()
   	genieSetup(_fileNamePortDisplay, BAUDRATE);
 }
 
-static void *updateDateDisplay(void *data)
-{
-	time_t _tDisplay;
-	struct tm *_tmDisplay;
-
-	for(;;)
-	{
-		_tDisplay = time(NULL);
-		_tmDisplay = localtime(&_tDisplay);
-
-		genieWriteObj(GENIE_OBJ_LED_DIGITS, 0x01, _tmDisplay->tm_hour);
-		genieWriteObj(GENIE_OBJ_LED_DIGITS, 0x02, _tmDisplay->tm_min);
-		genieWriteObj(GENIE_OBJ_LED_DIGITS, 0x03, _tmDisplay->tm_sec);
-	}
-	return NULL;
-}
-
-
-void startPthread()
-{
-	(void)pthread_create (&_updateDateDisplay,  NULL, updateDateDisplay, NULL);
-}
-
 /**
  * Funci?n que imprime la fecha y hora del sistema
  */
@@ -140,16 +121,16 @@ void printDateTime()
 /**
  * Funci?n que evalua el valor de la Temperatura y actualiza el estado del LED 
  */
-void procesarTemperatura(int temperatura)
+void processTemperature(int temperatura)
 {
-	if( temperatura >= PIVOTETEMP) digitalWrite(LRED,HIGH);
+	if( temperatura >= _threshold ) digitalWrite(LRED,HIGH);
 	else digitalWrite(LRED,LOW);
 }
 
 /**
  * Funci?n que evalua el valor de la Humedad y actualiza el estado del actuador RGB
  */
-void procesarHumedad(int humedad)
+void processHumidity(int humedad)
 {
 	if( humedad < RMINHUM ) // RED ON
 	{
@@ -167,32 +148,33 @@ void procesarHumedad(int humedad)
 	}
 }
 
-//This is the event handler. Messages received from the display
-//are processed here.
-void handleGenieEvent(struct genieReplyStruct * reply)
+void printLog(int temperature, int humidity)
 {
-  	if(reply->cmd == GENIE_REPORT_EVENT)    //check if the cmd byte is a report event
-  	{
-    	if(reply->object == GENIE_OBJ_KNOB) //check if the object byte is that of a slider
-      	{
-        	//if(reply->index == 0)		  //check if the index byte is that of Slider0	
-          	//	genieWriteObj(GENIE_OBJ_LED_DIGITS, 0x00, reply->data); //write to the LED digits object
-			printf("Resultado knob: %d\n",reply->data);
-      	}
-  	} 
-  	else //if the received message is not a report event, print a message on the terminal window
-    	printf("Unhandled event: command: %2d, object: %2d, index: %d, data: %d \r\n", reply->cmd, reply->object, reply->index, reply->data);
+	printf("Temperature%s: %.1f\n", "(C)", temperature);
+	printf("Humidity%s: %.1f\n\n", "(%)", humidity);
 }
 
-int main(int argc, char **argv)
-{	
-	loadConfiguration();
-	init();
-	startPthread();
+static void *updateTimeDisplay(void *data)
+{
+	time_t _tDisplay;
+	struct tm *_tmDisplay;
 
 	for(;;)
 	{
-		/*
+		_tDisplay = time(NULL);
+		_tmDisplay = localtime(&_tDisplay);
+
+		genieWriteObj(GENIE_OBJ_LED_DIGITS, 0x01, _tmDisplay->tm_hour);
+		genieWriteObj(GENIE_OBJ_LED_DIGITS, 0x02, _tmDisplay->tm_min);
+		genieWriteObj(GENIE_OBJ_LED_DIGITS, 0x03, _tmDisplay->tm_sec);
+	}
+	return NULL;
+}
+
+static void *getDataSensor(void *data)
+{
+	for(;;)
+	{
 		// Initiate measurement by sending a zero bit (see datasheet for communication pattern)
 		if ( (write(_fileDescriptor,_data,0)) != 0 )
 		{
@@ -222,19 +204,50 @@ int main(int argc, char **argv)
 				// Temperature is located in next two bytes, padded by two trailing bits
 				_lecturaTemperatura = (_data[2] << 6) + (_data[3] >> 2);
 				_temperaturaCal = _lecturaTemperatura / 16382.0 * 165.0 - 40;
-				
-				printf("Temperatura%s: %.1f\n", "(C)", _temperaturaCal);
-				printf("Humedad%s: %.1f\n\n", "(%)", _humedadCal);
-				
-				//procesarTemperatura((int)_temperaturaCal);
-				//procesarHumedad((int)_humedadCal);
+
+				printLog((int)_temperaturaCal, (int)_humedadCal);
+				//processTemperature((int)_temperaturaCal);
+				//processHumidity((int)_humedadCal);
 			}else 
 				printf("Error, el Estado es != 0\n");
 		}
 		delay(3000);
-		*/
+	}
+	return NULL;
+}
 
-		while(genieReplyAvail())      //check if a message is available
+
+void startPthread()
+{
+	(void)pthread_create(&_updateTimeDisplay,  NULL, updateTimeDisplay, NULL);
+	//(void)pthread_create(&_getDataSensor, NULL, getDataSensor, NULL);
+}
+
+//This is the event handler. Messages received from the display
+//are processed here.
+void handleGenieEvent(struct genieReplyStruct * reply)
+{
+  	if(reply->cmd == GENIE_REPORT_EVENT)    //check if the cmd byte is a report event
+  	{
+    	if(reply->object == GENIE_OBJ_KNOB) //check if the object byte is that of a knob
+      	{
+        	if(reply->index == 0)		  //check if the index byte is that of knob0
+				_threshold = reply->data;
+      	}
+  	} 
+  	else //if the received message is not a report event, print a message on the terminal window
+    	printf("Unhandled event: command: %2d, object: %2d, index: %d, data: %d \r\n", reply->cmd, reply->object, reply->index, reply->data);
+}
+
+int main(int argc, char **argv)
+{	
+	loadConfiguration();
+	init();
+	startPthread();
+
+	for(;;)
+	{
+		while( genieReplyAvail() )      //check if a message is available
     	{
       		genieGetReply(&_dataDisplay);      //take out a message from the events buffer
       		handleGenieEvent(&_dataDisplay);   //call the event handler to process the message
