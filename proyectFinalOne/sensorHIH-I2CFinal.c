@@ -82,7 +82,7 @@ void init()
 	pinMode(RGBRED, OUTPUT);
 
 	genieWriteObj(GENIE_OBJ_LED_DIGITS, 0x00, _threshold); //Inicializa el valor en 27
-	//genieWriteObj(GENIE_OBJ_KNOB, 0x00, _threshold); //Inicializa el valor en 27
+	genieWriteObj(GENIE_OBJ_KNOB, 0x00, _threshold); //Inicializa el valor en 27
 }
 
 void loadConfiguration()
@@ -124,7 +124,7 @@ void printDateTime()
  */
 void processTemperature(int temperatura)
 {
-	genieWriteObj(GENIE_OBJ_ANGULAR_METER, 0x00, temperatura);
+	//genieWriteObj(GENIE_OBJ_ANGULAR_METER, 0x00, temperatura);
 
 	//if( temperatura >= _threshold ) digitalWrite(LRED,HIGH);
 	//else digitalWrite(LRED,LOW);
@@ -135,7 +135,7 @@ void processTemperature(int temperatura)
  */
 void processHumidity(int humedad)
 {
-	genieWriteObj(GENIE_OBJ_METER, 0x00, humedad);
+	//genieWriteObj(GENIE_OBJ_METER, 0x00, humedad);
 
 	/*if( humedad < RMINHUM ) // RED ON
 	{
