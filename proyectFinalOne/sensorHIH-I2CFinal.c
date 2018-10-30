@@ -82,6 +82,7 @@ void init()
 	pinMode(RGBRED, OUTPUT);
 
 	genieWriteObj(GENIE_OBJ_LED_DIGITS, 0x00, _threshold); //Inicializa el valor en 27
+	genieWriteObj(GENIE_OBJ_KNOB, 0x00, _threshold); //Inicializa el valor en 27
 }
 
 void loadConfiguration()
@@ -220,7 +221,7 @@ static void *getDataSensor(void *data)
 void startPthread()
 {
 	(void)pthread_create(&_updateTimeDisplay,  NULL, updateTimeDisplay, NULL);
-	//(void)pthread_create(&_getDataSensor, NULL, getDataSensor, NULL);
+	(void)pthread_create(&_getDataSensor, NULL, getDataSensor, NULL);
 }
 
 //This is the event handler. Messages received from the display
