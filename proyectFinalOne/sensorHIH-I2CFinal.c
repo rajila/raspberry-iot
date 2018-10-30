@@ -124,7 +124,7 @@ void printDateTime()
  */
 void processTemperature(int temperatura)
 {
-	//genieWriteObj(GENIE_OBJ_ANGULAR_METER, 0x00, temperatura);
+	genieWriteObj(GENIE_OBJ_ANGULAR_METER, 0x00, temperatura);
 
 	//if( temperatura >= _threshold ) digitalWrite(LRED,HIGH);
 	//else digitalWrite(LRED,LOW);
@@ -135,7 +135,7 @@ void processTemperature(int temperatura)
  */
 void processHumidity(int humedad)
 {
-	//genieWriteObj(GENIE_OBJ_METER, 0x00, humedad);
+	genieWriteObj(GENIE_OBJ_METER, 0x00, humedad);
 
 	/*if( humedad < RMINHUM ) // RED ON
 	{
@@ -211,8 +211,8 @@ static void *getDataSensor(void *data)
 				_temperaturaCal = _lecturaTemperatura / 16382.0 * 165.0 - 40;
 
 				printLog(_temperaturaCal, _humedadCal);
-				//processTemperature((int)_temperaturaCal);
-				//processHumidity((int)_humedadCal);
+				processTemperature((int)_temperaturaCal);
+				processHumidity((int)_humedadCal);
 			}else 
 				printf("Error, el Estado es != 0\n");
 		}
