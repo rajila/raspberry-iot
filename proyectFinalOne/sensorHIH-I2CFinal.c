@@ -77,8 +77,6 @@ char *_fileNamePortDisplay = "/dev/serial0";
 int _threshold = 27;
 
 char _txtLogDisplay[MAX]  = "";
-char *_txtTemperature = "";
-char *_txtHumidity = "";
 
 /**
  * Funcion que define el estado de los PINs como salida.
@@ -164,12 +162,7 @@ void processHumidity(int humedad)
 
 void printLog(double temperature, double humidity)
 {
-	sprintf(_txtLogDisplay, "\0");
-	//_txtTemperature = "";
-	//_txtHumidity = "";
-
-	//dtostrf(temperature, 2, 1, _txtTemperature);
-	//dtostrf(humidity, 2, 1, _txtHumidity);
+	sprintf(_txtLogDisplay, '\0');
 	sprintf(_txtLogDisplay, "Temperature%s: %.1f\nHumidity%s: %.1f\n\n", "(C)", temperature, "(%)", humidity);
 
 	printf("Temperature%s: %.1f\n", "(C)", temperature);
