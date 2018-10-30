@@ -211,8 +211,8 @@ static void *getDataSensor(void *data)
 				_temperaturaCal = _lecturaTemperatura / 16382.0 * 165.0 - 40;
 
 				printLog(_temperaturaCal, _humedadCal);
-				processTemperature((int)_temperaturaCal);
-				processHumidity((int)_humedadCal);
+				//processTemperature((int)_temperaturaCal);
+				//processHumidity((int)_humedadCal);
 			}else 
 				printf("Error, el Estado es != 0\n");
 		}
