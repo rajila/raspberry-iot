@@ -31,6 +31,9 @@
 #include <softPwm.h>
 #include <math.h>
 
+#include <ctype.h>
+#include <errno.h>
+
 // Librerias para el proyecto
 #include <pthread.h>
 #include <geniePi.h>  //the ViSi-Genie-RaspPi library
