@@ -82,7 +82,7 @@ void init()
 	pinMode(RGBRED, OUTPUT);
 
 	genieWriteObj(GENIE_OBJ_LED_DIGITS, 0x00, _threshold); //Inicializa el valor en 27
-	genieWriteObj(GENIE_OBJ_KNOB, 0x00, _threshold); //Inicializa el valor en 27
+	//genieWriteObj(GENIE_OBJ_KNOB, 0x00, _threshold); //Inicializa el valor en 27
 }
 
 void loadConfiguration()
