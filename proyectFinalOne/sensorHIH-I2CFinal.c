@@ -225,7 +225,7 @@ static void *getDataSensor(void *data)
 void startPthread()
 {
 	(void)pthread_create(&_updateTimeDisplay,  NULL, updateTimeDisplay, NULL);
-	(void)pthread_create(&_getDataSensor, NULL, getDataSensor, NULL);
+	//(void)pthread_create(&_getDataSensor, NULL, getDataSensor, NULL);
 }
 
 //This is the event handler. Messages received from the display
