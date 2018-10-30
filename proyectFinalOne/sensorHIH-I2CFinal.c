@@ -47,6 +47,8 @@
 #define RGBBLUE 5 // GPIO24 (NumPin: 18)
 #define RGBRED 6 // GPIO25 (NumPin: 22)
 
+#define MAX 100
+
 // Variables de configuracion
 int _fileDescriptor; // File descriptor
 const char *_fileNamePort = "/dev/i2c-1"; // Name of the port we will be using. On Raspberry 2 this is i2c-1, on an older Raspberry Pi 1 this might be i2c-0.
@@ -70,6 +72,10 @@ pthread_t _getDataSensor;
 struct genieReplyStruct _dataDisplay;
 char *_fileNamePortDisplay = "/dev/serial0";
 int _threshold = 27;
+
+char _txtLogDisplay[MAX]  = "";
+char *_txtTemperature = "";
+char *_txtHumidity = "";
 
 /**
  * Funcion que define el estado de los PINs como salida.
@@ -155,8 +161,17 @@ void processHumidity(int humedad)
 
 void printLog(double temperature, double humidity)
 {
+	sprintf(_txtLogDisplay, "");
+	_txtTemperature = "";
+	_txtHumidity = "";
+
+	dtostrf(temperature, 2, 1, _txtTemperature);
+	dtostrf(humidity, 2, 1, _txtHumidity);
+	sprintf(_txtLogDisplay, "Temperature%s: %s\nHumidity%s: %s\n\n", "(C)", _txtTemperature, "(%)", _txtHumidity);
+
 	printf("Temperature%s: %.1f\n", "(C)", temperature);
 	printf("Humidity%s: %.1f\n\n", "(%)", humidity);
+	genieWriteStr(0x00, _txtLogDisplay); //write to Strings0
 }
 
 static void *updateTimeDisplay(void *data)
