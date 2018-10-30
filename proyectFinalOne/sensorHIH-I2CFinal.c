@@ -164,13 +164,13 @@ void processHumidity(int humedad)
 
 void printLog(double temperature, double humidity)
 {
-	sprintf(_txtLogDisplay, "");
-	_txtTemperature = "";
-	_txtHumidity = "";
+	sprintf(_txtLogDisplay, "\0");
+	//_txtTemperature = "";
+	//_txtHumidity = "";
 
-	dtostrf(temperature, 2, 1, _txtTemperature);
-	dtostrf(humidity, 2, 1, _txtHumidity);
-	sprintf(_txtLogDisplay, "Temperature%s: %s\nHumidity%s: %s\n\n", "(C)", _txtTemperature, "(%)", _txtHumidity);
+	//dtostrf(temperature, 2, 1, _txtTemperature);
+	//dtostrf(humidity, 2, 1, _txtHumidity);
+	sprintf(_txtLogDisplay, "Temperature%s: %.1f\nHumidity%s: %.1f\n\n", "(C)", temperature, "(%)", humidity);
 
 	printf("Temperature%s: %.1f\n", "(C)", temperature);
 	printf("Humidity%s: %.1f\n\n", "(%)", humidity);
