@@ -135,7 +135,7 @@ void processTemperature(int temperatura)
  */
 void processHumidity(int humedad)
 {
-	genieWriteObj(GENIE_OBJ_METER, 0x00, humedad);
+	genieWriteObj(GENIE_OBJ_METER, 0x01, humedad);
 
 	/*if( humedad < RMINHUM ) // RED ON
 	{
