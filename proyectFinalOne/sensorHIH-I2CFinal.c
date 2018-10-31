@@ -76,8 +76,7 @@ struct genieReplyStruct _dataDisplay;
 char *_fileNamePortDisplay = "/dev/serial0";
 int _threshold = 27;
 
-//char _txtLogDisplay[MAX]  = "";
-//char *_txtLogDisplay  = "";
+char _txtLogDisplay[MAX]  = "";
 
 /**
  * Funcion que define el estado de los PINs como salida.
@@ -164,7 +163,7 @@ void processHumidity(int humedad)
 void printLog(double temperature, double humidity)
 {
 	//sprintf(_txtLogDisplay, " ");
-	char _txtLogDisplay[MAX] = "";
+	_txtLogDisplay[MAX] = "";
 	sprintf(_txtLogDisplay, "Temperature%s: %.1f", "(C)",temperature);
 
 	printf("Temperature%s: %.1f\n", "(C)", temperature);
