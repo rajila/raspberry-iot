@@ -163,8 +163,7 @@ void processHumidity(int humedad)
 void printLog(double temperature, double humidity)
 {
 	sprintf(_txtLogDisplay, "%s","");
-	//_txtLogDisplay[MAX] = "";
-	sprintf(_txtLogDisplay, "Temperature%s: %.1f", "(C)",temperature);
+	sprintf(_txtLogDisplay, "Temperature%s: %.1f\nHumidity%s: %.1f", "(C)",temperature,"(%)",humidity);
 
 	printf("Temperature%s: %.1f\n", "(C)", temperature);
 	printf("Humidity%s: %.1f\n\n", "(%)", humidity);
