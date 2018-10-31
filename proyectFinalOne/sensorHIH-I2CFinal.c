@@ -165,11 +165,11 @@ void printLog(double temperature, double humidity)
 {
 	//sprintf(_txtLogDisplay, " ");
 	char _txtLogDisplay[MAX] = "";
-	sprintf(_txtLogDisplay, "Temperature %s: ", "(C)");
+	sprintf(_txtLogDisplay, "Temperature%s: %.1f", "(C)",temperature);
 
 	printf("Temperature%s: %.1f\n", "(C)", temperature);
 	printf("Humidity%s: %.1f\n\n", "(%)", humidity);
-	genieWriteStr(0x00, "Holaaaa"); //write to Strings0
+	genieWriteStr(0x00, _txtLogDisplay); //write to Strings0
 }
 
 static void *updateTimeDisplay(void *data)
