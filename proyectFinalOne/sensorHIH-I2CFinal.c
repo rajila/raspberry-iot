@@ -165,7 +165,7 @@ void printLog(double temperature, double humidity)
 {
 	//sprintf(_txtLogDisplay, " ");
 	_txtLogDisplay = "";
-	sprintf(_txtLogDisplay, "Temperature%s: ", "(C)");
+	sprintf(_txtLogDisplay, "Temperature %s: ", "(C)");
 
 	printf("Temperature%s: %.1f\n", "(C)", temperature);
 	printf("Humidity%s: %.1f\n\n", "(%)", humidity);
