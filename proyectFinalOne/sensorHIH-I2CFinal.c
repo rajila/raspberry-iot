@@ -1,9 +1,14 @@
 /**
+ * 
+ * @author
+ * Jesus Vicente De La Torre
+ * Ronald Daniel Ajila
+ * 
  * Links: 
  *      https://github.com/karlrupp/i2cHoneywellHumidity/blob/master/i2cHoneywellHumidity.c
  *      https://poesiabinaria.net/2012/06/obtener-la-fecha-y-hora-formateada-en-c/
  *      http://rants.dyer.com.hk/rpi/humidity_i2c.html
- *		https://github.com/4dsystems/ViSi-Genie-RaspPi-Library/blob/master/geniePi.c
+ * 		https://github.com/4dsystems/ViSi-Genie-RaspPi-Library/blob/master/geniePi.c
  *		
  * Conexion del Sensor HIH al Raspberry Pi
  *   SENSOR       RASPBERRY
