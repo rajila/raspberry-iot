@@ -12,10 +12,10 @@
  *		
  * Conexion del Sensor HIH al Raspberry Pi
  *   SENSOR       RASPBERRY
- * VDD(1)    -->    3V3 (NumPin: 17)
- * VSS(2)    -->    GND (NumPin: 9)
- * SCL(3)    -->    GPIO3 (NumPin: 5)
- * SDA(4)    -->	GPIO2 (NumPin: 3)
+ * VDD(1)    -->    3V3 (NumPin: 17) --> CABLE VERDE
+ * VSS(2)    -->    GND (NumPin: 9)  --> CABLE BLANCO
+ * SCL(3)    -->    GPIO3 (NumPin: 5) --> CABLE ROJO
+ * SDA(4)    -->	GPIO2 (NumPin: 3) --> CABLE AZUL
  *
  * Para compilar el proyecto hacer uso del archivo Makefile, para esto ejecutar el siguiente comando:
  * Comando para compilar: make
@@ -47,6 +47,7 @@
 #define RMAXHUM 70.0 // Valor máximo para evaluar el cambio de Humedad
 
 #define LRED 1 // GPIO18 (NumPin: 12)
+#define PULSER 3 // GPI022 (NumPin: 15)
 
 #define RGBGREEN 4 // GPIO23 (NumPin: 16)
 #define RGBBLUE 5 // GPIO24 (NumPin: 18)
@@ -63,7 +64,7 @@ unsigned char _data[4]; // Buffer for data read/written on the i2c bus
 // Variables para lectura de Fecha y Hora del sistema
 time_t _t;
 struct tm *_tm;
-char _dateTime[100];
+char _dateTime[MAX];
 
 // Variables para lectura de Sensor
 int _lecturaTemperatura;
@@ -78,6 +79,7 @@ char *_fileNamePortDisplay = "/dev/serial0"; // Nombre del puerto del Display en
 int _threshold = 27; // Variable dinámica que se actualiza desde el Display.
 char *_formatoLog = "Temperature%s: %.1f\nHumidity%s: %.1f"; // Formato del Log para mostrar en el Display
 char _txtLogDisplay[MAX]  = ""; // Variable q' guardar el Log de la temperatura y humedad para el Display
+bool _flagDisplay = true;
 
 /**
  * Función que inicializa el modo de salida de los sensores y asigna el valor por defecto de los componentes del Display (LED-DIGITS, KNOB).
@@ -89,6 +91,10 @@ void init()
 	pinMode(RGBGREEN, OUTPUT);
 	pinMode(RGBBLUE, OUTPUT);
 	pinMode(RGBRED, OUTPUT);
+
+	// pulsador
+	pinMode         (PULSER, INPUT) ;
+    pullUpDnControl (PULSER, PUD_DOWN);
 
 	genieWriteObj(GENIE_OBJ_LED_DIGITS, 0x00, _threshold); // Inicializa el valor en 27
 	genieWriteObj(GENIE_OBJ_KNOB, 0x00, _threshold); // Inicializa el valor en 27
@@ -267,6 +273,17 @@ void handleGenieEvent(struct genieReplyStruct * reply)
     	printf("Unhandled event: command: %2d, object: %2d, index: %d, data: %d \r\n", reply->cmd, reply->object, reply->index, reply->data);
 }
 
+void changeDisplay()
+{
+	if(digitalRead(PULSER) == HIGH)
+	{
+		if(!_flagDisplay) genieWriteObj(GENIE_OBJ_FORM, 0x00, LOW);
+		else genieWriteObj(GENIE_OBJ_FORM, 0x01, LOW);
+
+		_flagDisplay = !_flagDisplay;
+	}
+}
+
 /**
  * Función principal de la aplicación
  */
@@ -278,6 +295,8 @@ int main(int argc, char **argv)
 
 	for(;;)
 	{
+		changeDisplay();
+		
 		while( genieReplyAvail() )      //check if a message is available
     	{
       		genieGetReply(&_dataDisplay);      //take out a message from the events buffer
