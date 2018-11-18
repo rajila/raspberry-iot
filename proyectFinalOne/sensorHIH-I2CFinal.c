@@ -36,6 +36,7 @@
 #include <wiringPi.h>
 #include <softPwm.h>
 #include <math.h>
+#include <stdbool.h>
 
 // Librerias para el proyecto
 #include <pthread.h>
