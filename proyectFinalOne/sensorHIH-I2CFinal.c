@@ -274,12 +274,15 @@ void handleGenieEvent(struct genieReplyStruct * reply)
     	printf("Unhandled event: command: %2d, object: %2d, index: %d, data: %d \r\n", reply->cmd, reply->object, reply->index, reply->data);
 }
 
+/**
+ * Funcion que evalua el valor del pulsador para cambiar de formulario en el Display
+ */
 void changeDisplay()
 {
 	if(digitalRead(PULSER) == HIGH)
 	{
-		if(!_flagDisplay) genieWriteObj(GENIE_OBJ_FORM, 0x00, LOW);
-		else genieWriteObj(GENIE_OBJ_FORM, 0x01, LOW);
+		if(!_flagDisplay) genieWriteObj(GENIE_OBJ_FORM, 0x00, LOW); // Form 0 (Principal)
+		else genieWriteObj(GENIE_OBJ_FORM, 0x01, LOW); // Form 1 (Secuandario)
 
 		_flagDisplay = !_flagDisplay;
 	}
