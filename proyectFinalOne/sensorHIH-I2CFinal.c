@@ -285,6 +285,8 @@ void changeDisplay()
 		else genieWriteObj(GENIE_OBJ_FORM, 0x01, LOW); // Form 1 (Secuandario)
 
 		_flagDisplay = !_flagDisplay;
+		
+		delay(10);
 	}
 }
 
