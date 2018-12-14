@@ -1,0 +1,256 @@
+# Pagina oficial de SO Raspberry Debian ()
+	https://www.raspberrypi.org/downloads/raspbian/
+
+# Descargar la version:
+	Raspbian Stretch with desktop and recommended software
+		Este version del SO ya tiene instalado Python Y Java 1.8.0
+	
+# Pagina de pasos de instalación de libreria MRAA (Algunos puntos estan incorrectos)
+	https://www.ics.com/blog/getting-started-mraa-raspberry-pi
+	
+# Instalar NodeJS
+	sudo apt-get update
+	sudo apt-get upgrade
+	sudo apt-get install nodejs npm
+	
+	https://raspberryparatorpes.net/instalacion/instalar-node-js-en-la-raspberry/
+	http://codigoelectronica.com/blog/instalar-nodejs-en-raspberry-pi
+	
+# Ayuda de comandos -Djava.library.path
+	https://examples.javacodegeeks.com/java-basics/java-library-path-what-is-it-and-how-to-use/
+	
+# Ejecutar archivo jar
+	java -Djava.library.path=./lib -jar myApplication.jar
+
+
+# Path para la version de Node, Python y Java de Mraa
+/usr/share/npm/node_modules
+
+/usr/lib/jvm/jdk-8-oracle-arm32-vfp-hflt
+
+/usr/lib/python2.7/dist-packages
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+pi@raspberrypi:~/Documents/IoT/mraa/build $ sudo make install
+[ 23%] Built target mraa
+[ 27%] Built target _python2-mraa
+[ 32%] Built target _python3-mraa
+[ 36%] Built target mraajava
+[ 39%] Built target mraajs
+[ 41%] Built target uart_ow
+[ 44%] Built target iio
+[ 46%] Built target gpio_advanced
+[ 48%] Built target spi
+[ 50%] Built target hellomraa
+[ 52%] Built target aio
+[ 54%] Built target pwm
+[ 56%] Built target uart_advanced
+[ 59%] Built target uart
+[ 61%] Built target gpio
+[ 63%] Built target led
+[ 65%] Built target i2c_hmc5883l
+[ 67%] Built target i2c_mpu6050
+[ 69%] Built target gpio_edison
+[ 72%] Built target up2-leds
+[ 74%] Built target uart_cpp
+[ 76%] Built target pwm_cpp
+[ 78%] Built target spi_cpp
+[ 80%] Built target gpio_cpp
+[ 82%] Built target aio_cpp
+[ 84%] Built target i2c_cpp
+[ 87%] Built target iio_cpp
+[ 89%] Built target gpio_advanced_cpp
+[ 91%] Built target uart_ow_cpp
+[ 93%] Built target led_cpp
+[ 95%] Built target mraa-gpio
+[ 97%] Built target mraa-i2c
+[100%] Built target mraa-uart
+Install the project...
+-- Install configuration: ""
+-- Installing: /usr/local/include/mraa.h
+-- Installing: /usr/local/include/mraa.hpp
+-- Installing: /usr/local/include/mraa
+-- Installing: /usr/local/include/mraa/gpio.h
+-- Installing: /usr/local/include/mraa/i2c.h
+-- Installing: /usr/local/include/mraa/spi.h
+-- Installing: /usr/local/include/mraa/led.h
+-- Installing: /usr/local/include/mraa/spi.hpp
+-- Installing: /usr/local/include/mraa/aio.h
+-- Installing: /usr/local/include/mraa/types.h
+-- Installing: /usr/local/include/mraa/firmata.h
+-- Installing: /usr/local/include/mraa/pwm.hpp
+-- Installing: /usr/local/include/mraa/types.hpp
+-- Installing: /usr/local/include/mraa/iio_kernel_headers.h
+-- Installing: /usr/local/include/mraa/uart.hpp
+-- Installing: /usr/local/include/mraa/initio.hpp
+-- Installing: /usr/local/include/mraa/common.hpp
+-- Installing: /usr/local/include/mraa/iio.hpp
+-- Installing: /usr/local/include/mraa/uart_ow.h
+-- Installing: /usr/local/include/mraa/initio.h
+-- Installing: /usr/local/include/mraa/led.hpp
+-- Installing: /usr/local/include/mraa/common.h
+-- Installing: /usr/local/include/mraa/iio.h
+-- Installing: /usr/local/include/mraa/uart.h
+-- Installing: /usr/local/include/mraa/aio.hpp
+-- Installing: /usr/local/include/mraa/i2c.hpp
+-- Installing: /usr/local/include/mraa/uart_ow.hpp
+-- Installing: /usr/local/include/mraa/gpio.hpp
+-- Installing: /usr/local/include/mraa/pwm.h
+-- Installing: /usr/local/lib/pkgconfig/mraa.pc
+-- Installing: /usr/local/lib/libmraa.so.2.0.0
+-- Installing: /usr/local/lib/libmraa.so.2
+-- Installing: /usr/local/lib/libmraa.so
+-- Installing: /usr/local/lib/python2.7/dist-packages/_mraa.so
+-- Set runtime path of "/usr/local/lib/python2.7/dist-packages/_mraa.so" to ""
+-- Installing: /usr/local/lib/python2.7/dist-packages/mraa.py
+-- Installing: /usr/local/lib/python3.5/dist-packages/_mraa.so
+-- Set runtime path of "/usr/local/lib/python3.5/dist-packages/_mraa.so" to ""
+-- Installing: /usr/local/lib/python3.5/dist-packages/mraa.py
+-- Installing: /usr/local/lib/pkgconfig/mraajava.pc
+-- Installing: /usr/local/lib/libmraajava.so
+-- Set runtime path of "/usr/local/lib/libmraajava.so" to ""
+-- Installing: /usr/local/lib/../lib/java/mraa.jar
+-- Installing: /usr/local/lib/node_modules/mraa/package.json
+-- Installing: /usr/local/lib/node_modules/mraa/mraa.node
+-- Set runtime path of "/usr/local/lib/node_modules/mraa/mraa.node" to ""
+-- Installing: /usr/local/share/mraa/examples
+-- Installing: /usr/local/share/mraa/examples/java
+-- Installing: /usr/local/share/mraa/examples/java/GpioMmapped.java
+-- Installing: /usr/local/share/mraa/examples/java/AioA0.java
+-- Installing: /usr/local/share/mraa/examples/java/Isr.java
+-- Installing: /usr/local/share/mraa/examples/java/FTDITest.java
+-- Installing: /usr/local/share/mraa/examples/java/BlinkOnboard.java
+-- Installing: /usr/local/share/mraa/examples/java/SpiMCP4261.java
+-- Installing: /usr/local/share/mraa/examples/java/I2cCompass.java
+-- Installing: /usr/local/share/mraa/examples/java/HelloEdison.java
+-- Installing: /usr/local/share/mraa/examples/java/UartExample.java
+-- Installing: /usr/local/share/mraa/examples/java/CyclePwm3.java
+-- Installing: /usr/local/share/mraa/examples/java/BlinkIO.java
+-- Installing: /usr/local/share/mraa/examples/java/SpiMAX7219.java
+-- Installing: /usr/local/share/mraa/examples/java/Example.java
+-- Installing: /usr/local/share/mraa/examples/java/Bmp85.java
+-- Installing: /usr/local/share/mraa/examples/java/GpioRead6.java
+-- Installing: /usr/local/share/mraa/examples/javascript
+-- Installing: /usr/local/share/mraa/examples/javascript/Blink-IO.js
+-- Installing: /usr/local/share/mraa/examples/javascript/gpio-tool.js
+-- Installing: /usr/local/share/mraa/examples/javascript/firmata.js
+-- Installing: /usr/local/share/mraa/examples/javascript/isr.js
+-- Installing: /usr/local/share/mraa/examples/javascript/bmp85.js
+-- Installing: /usr/local/share/mraa/examples/javascript/rgblcd.js
+-- Installing: /usr/local/share/mraa/examples/javascript/spi.js
+-- Installing: /usr/local/share/mraa/examples/javascript/AioA0.js
+-- Installing: /usr/local/share/mraa/examples/javascript/uart.js
+-- Installing: /usr/local/share/mraa/examples/javascript/initio.js
+-- Installing: /usr/local/share/mraa/examples/javascript/GPIO_DigitalRead.js
+-- Installing: /usr/local/share/mraa/examples/javascript/GPIO_DigitalWrite.js
+-- Installing: /usr/local/share/mraa/examples/c
+-- Installing: /usr/local/share/mraa/examples/c/uart_advanced.c
+-- Installing: /usr/local/share/mraa/examples/c/hellomraa.c
+-- Installing: /usr/local/share/mraa/examples/c/uart_ow.c
+-- Installing: /usr/local/share/mraa/examples/c/gpio_advanced.c
+-- Installing: /usr/local/share/mraa/examples/c/CMakeLists.txt
+-- Installing: /usr/local/share/mraa/examples/c/i2c_hmc5883l.c
+-- Installing: /usr/local/share/mraa/examples/c/led.c
+-- Installing: /usr/local/share/mraa/examples/c/spi.c
+-- Installing: /usr/local/share/mraa/examples/c/uart.c
+-- Installing: /usr/local/share/mraa/examples/c/initio.c
+-- Installing: /usr/local/share/mraa/examples/c/iio.c
+-- Installing: /usr/local/share/mraa/examples/c/aio.c
+-- Installing: /usr/local/share/mraa/examples/c/gpio.c
+-- Installing: /usr/local/share/mraa/examples/c/i2c_mpu6050.c
+-- Installing: /usr/local/share/mraa/examples/c/pwm.c
+-- Installing: /usr/local/share/mraa/examples/c++
+-- Installing: /usr/local/share/mraa/examples/c++/CMakeLists.txt
+-- Installing: /usr/local/share/mraa/examples/c++/pwm.cpp
+-- Installing: /usr/local/share/mraa/examples/c++/gpio_advanced.cpp
+-- Installing: /usr/local/share/mraa/examples/c++/i2c.cpp
+-- Installing: /usr/local/share/mraa/examples/c++/aio.cpp
+-- Installing: /usr/local/share/mraa/examples/c++/led.cpp
+-- Installing: /usr/local/share/mraa/examples/c++/uart_ow.cpp
+-- Installing: /usr/local/share/mraa/examples/c++/uart.cpp
+-- Installing: /usr/local/share/mraa/examples/c++/iio.cpp
+-- Installing: /usr/local/share/mraa/examples/c++/gpio.cpp
+-- Installing: /usr/local/share/mraa/examples/c++/spi.cpp
+-- Installing: /usr/local/share/mraa/examples/samples.mapping.txt
+-- Installing: /usr/local/share/mraa/examples/CMakeLists.txt
+-- Installing: /usr/local/share/mraa/examples/platform
+-- Installing: /usr/local/share/mraa/examples/platform/initio.cpp
+-- Installing: /usr/local/share/mraa/examples/platform/initio.py
+-- Installing: /usr/local/share/mraa/examples/platform/gpio_edison.c
+-- Installing: /usr/local/share/mraa/examples/platform/CMakeLists.txt
+-- Installing: /usr/local/share/mraa/examples/platform/firmata_curie_imu.c
+-- Installing: /usr/local/share/mraa/examples/platform/turbotjson.json
+-- Installing: /usr/local/share/mraa/examples/platform/i2c_firmata.c
+-- Installing: /usr/local/share/mraa/examples/platform/initio.c
+-- Installing: /usr/local/share/mraa/examples/platform/intel-aero.json
+-- Installing: /usr/local/share/mraa/examples/platform/Up2Leds.java
+-- Installing: /usr/local/share/mraa/examples/platform/up2-leds.cpp
+-- Installing: /usr/local/share/mraa/examples/gpio_multiple_rw.c
+-- Installing: /usr/local/share/mraa/examples/python
+-- Installing: /usr/local/share/mraa/examples/python/uart.py
+-- Installing: /usr/local/share/mraa/examples/python/aio.py
+-- Installing: /usr/local/share/mraa/examples/python/led.py
+-- Installing: /usr/local/share/mraa/examples/python/uart_sender.py
+-- Installing: /usr/local/share/mraa/examples/python/gpio.py
+-- Installing: /usr/local/share/mraa/examples/python/i2c_bmp85.py
+-- Installing: /usr/local/share/mraa/examples/python/uart_receiver.py
+-- Installing: /usr/local/share/mraa/examples/python/gpio_advanced.py
+-- Installing: /usr/local/share/mraa/examples/python/i2c_rgb.py
+-- Installing: /usr/local/share/mraa/examples/python/spi_loopback.py
+-- Installing: /usr/local/share/mraa/examples/python/spi.py
+-- Installing: /usr/local/share/mraa/examples/python/firmata.py
+-- Installing: /usr/local/share/mraa/examples/python/pwm.py
+-- Installing: /usr/local/bin/mraa-gpio
+-- Set runtime path of "/usr/local/bin/mraa-gpio" to ""
+-- Installing: /usr/local/bin/mraa-i2c
+-- Set runtime path of "/usr/local/bin/mraa-i2c" to ""
+-- Installing: /usr/local/bin/mraa-uart
+-- Set runtime path of "/usr/local/bin/mraa-uart" to ""
+
+
+# Path donde se instalo la libreria mraa.java
+/usr/local/lib/java
+
+
+
+java -Djava.library.path=/usr/lib/java -cp .:/usr/lib/java/*:gson-2.2.2.jar:PlantMonitoring.jar PlantMonitoring
+
+
+
+
+Native code library failed to load. See the chapter on Dynamic Linking Problems in the SWIG Java documentation for help.
+java.lang.UnsatisfiedLinkError: /usr/local/lib/libmraajava.so: libmraa.so.2: cannot open shared object file: No such file or directory
+
+
+
+
+
+
+sudo ln -s /usr/local/lib/libmraa.so.2 libmraajava.so
+
+
+
+
+
+
+
+Errores de Java
+Exception in thread "main" java.lang.UnsatisfiedLinkError: mraa.mraaJNI.getVersion()Ljava/lang/String;
+        at mraa.mraaJNI.getVersion(Native Method)
+        at mraa.mraa.getVersion(mraa.java:17)
+        at mraa.mraaJNI.<clinit>(mraaJNI.java:335)
+        at mraa.mraa.getPlatformName(mraa.java:45)
+        at Example.main(Example.java:42)

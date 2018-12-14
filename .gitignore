@@ -50,3 +50,6 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+/proyectoTwo/libiot/nbproject/private/
+/proyectoTwo/libiot/build/
+/proyectoTwo/libiot/dist/
