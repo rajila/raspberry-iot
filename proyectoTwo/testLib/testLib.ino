@@ -1,7 +1,6 @@
 #include "robologs.h"
  
 robologs robby;
-//WaterLevelSensor _waterLevelSensor((char*)"wtl", _WATERLEVEL_PIN);
 
 void setup()
 {
@@ -13,6 +12,8 @@ void setup()
 void loop() 
 {
   robby.blinking(_PINLED, _TIMESLEEP);
-  WaterLevelSensor _waterLevelSensor((char*)"wtl", _WATERLEVEL_PIN);
-  delay(3000);
+  //WaterLevelSensor _waterLevelSensor((char*)"wtl", _WATERLEVEL_PIN);
+  ForceSensitiveResistorSensor _forceSRSensor((char*)"fsr", _FORSESENSITIVER_PIN);
+  _forceSRSensor.monitor();
+  delay(1000);
 }

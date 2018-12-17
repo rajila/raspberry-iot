@@ -5,8 +5,9 @@
 #include <stdio.h>
 
 #define _WATERLEVEL_PIN A0
+#define _FORSESENSITIVER_PIN A0
 #define _PINLED 2
-#define _TIMESLEEP 500
+#define _TIMESLEEP 250
  
 class robologs //Definicion de la clase
 {
@@ -70,6 +71,16 @@ class WaterLevelSensor : public Sensor
   
   public:
     WaterLevelSensor(char id[], int analPort);
+    SensorMeasurement monitor();
+};
+
+class ForceSensitiveResistorSensor : public Sensor 
+{
+  private: 
+    double _valueSensor;
+  
+  public:
+    ForceSensitiveResistorSensor(char id[], int analPort);
     SensorMeasurement monitor();
 };
  
