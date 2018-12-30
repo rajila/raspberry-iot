@@ -14,7 +14,7 @@
  
 HX711 balanca(DOUT, CLK);             // instancia Balança HX711
  
-float calibration_factor = 398030;     // Factor de calibración a 0.200 kg
+float calibration_factor = 399030;     // Factor de calibración a 0.400 kg
  
 void setup()
 {
@@ -46,7 +46,7 @@ void loop()
   Serial.print(" kg");
   Serial.print("      Fator de Calibracion: ");               // imprime no monitor serial
   Serial.println(calibration_factor);                        // imprime fator de calibração
-  delay(500) ;                                               // atraso de 0,5 segundo
+  delay(5000) ;                                               // atraso de 0,5 segundo
  
   if (Serial.available())                                    // reconhece letra para ajuste do fator de calibração
   {

@@ -12,5 +12,11 @@ void setup()
 
 void loop() 
 {
-  // put your main code here, to run repeatedly:
+  Serial.print("Water: ");
+  Serial.print(_wtlSensor.getDataSensor());
+  Serial.println(" %");
+  Serial.print("Balance: ");
+  Serial.print(_dgbSensor.getDataSensor(),3);
+  Serial.println(" kg");
+  delay(5000);
 }

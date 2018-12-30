@@ -5,6 +5,6 @@
 #define _DIGITALBALANCE_DOUT_PIN 26 // HX711 DATA OUT
 #define _DIGITALBALANCE_CLK_PIN 27 // HX711 SCK IN
 
-#define _CALIBRATIONFACTOR 398030 // Factor de calibración a 0.200 kg
+#define _CALIBRATIONFACTOR 399030 // Factor de calibración a 0.200 kg
 
 #endif

@@ -88,7 +88,8 @@ void WaterLevelSensor::init(char id[], char observationProperty[], int analogicP
 
 double WaterLevelSensor::getDataSensor()
 {
-  return analogRead(this->analogicPin);
+  //return (analogRead(this->analogicPin)*100)/1024; // % de nivel de agua
+  return analogRead(this->analogicPin); // % de nivel de agua
 }
 
 SensorMeasurement WaterLevelSensor::monitor()
@@ -113,7 +114,7 @@ void DigitalBalanceSensor::init(char id[], char observationProperty[], int analo
 
 double DigitalBalanceSensor::getDataSensor()
 {
-  return this->balanza.get_units()*1000; // Gramos
+  return this->balanza.get_units(); // Kg
 }
 
 HX711 DigitalBalanceSensor::getBalanza()
