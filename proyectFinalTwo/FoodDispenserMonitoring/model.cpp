@@ -45,7 +45,11 @@ SensorMeasurement::SensorMeasurement(char id[], char observationProperty[], doub
     this->out = sensorOutput;
 }
 
-Sensor::Sensor(char id[], char observationProperty[])
+/**
+ *
+ *
+ */
+void Sensor::init(char id[], char observationProperty[])
 {
   strcpy(this->id, id);
   strcpy(this->observationProperty, observationProperty);
@@ -71,66 +75,53 @@ void Sensor::setObservationProperty(char value[])
   strcpy(this->observationProperty, value);
 }
 
-WaterLevelSensor::WaterLevelSensor(char id[], int analPort) : Sensor(id, (char*)"dbl")
+/**
+ * 
+ * 
+ */
+void WaterLevelSensor::init(char id[], char observationProperty[], int analogicPin)
 {
-  // Capturamos el valor del PIN
-  this->_valueSensor = analogRead(analPort);
-  Serial.print("Value Sensor: ");Serial.println(this->_valueSensor);
+  Sensor::init(id, observationProperty);
+  this->analogicPin = analogicPin;
+  pinMode(analogicPin, INPUT);
+}
+
+double WaterLevelSensor::getDataSensor()
+{
+  return analogRead(this->analogicPin);
 }
 
 SensorMeasurement WaterLevelSensor::monitor()
 {
   //Operación matematica con el valor del sensor
-  return SensorMeasurement(Sensor::getID(), Sensor::getObservationProperty(), this->_valueSensor);
+  return SensorMeasurement(Sensor::getID(), Sensor::getObservationProperty(), getDataSensor());
 }
 
-DigitalBalanceSensor::DigitalBalanceSensor(char id[], int analPort) : Sensor(id, (char*)"dbl")
+/**
+ * 
+ */
+void DigitalBalanceSensor::init(char id[], char observationProperty[], int analogicPinDOUT, int analogicPinSCK)
 {
-  // Capturamos el valor del PIN
-  this->_valueSensor = analogRead(analPort);
-  Serial.print("Value Sensor: ");Serial.println(this->_valueSensor);
+  Sensor::init(id, observationProperty);
+  this->analogicPinDOUT = analogicPinDOUT;
+  this->analogicPinSCK = analogicPinSCK;
+  this->balanza.begin(analogicPinDOUT,analogicPinSCK);
+  this->balanza.set_scale();
+  this->balanza.tare();
+  this->balanza.set_scale(_CALIBRATIONFACTOR);
+}
+
+double DigitalBalanceSensor::getDataSensor()
+{
+  return this->balanza.get_units()*1000; // Gramos
+}
+
+HX711 DigitalBalanceSensor::getBalanza()
+{
+  return this->balanza;
 }
 
 SensorMeasurement DigitalBalanceSensor::monitor()
 {
-  // Link de ayuda: https://learn.adafruit.com/force-sensitive-resistor-fsr?view=all
-  // analog voltage reading ranges from about 0 to 1023 which maps to 0V to 5V (= 5000mV)
-  double _peso = 0.0;
-  Serial.print("this->_valueSensor = ");
-  Serial.println(this->_valueSensor); 
-  int _fsrVoltage = map(this->_valueSensor, 0, 1024, 0, 5000);
-  int _fsrResistance = 5000 - _fsrVoltage; // fsrVoltage is in millivolts so 5V = 5000mV
-  Serial.print("Voltage reading in mV = ");
-  Serial.println(_fsrVoltage); 
-  if( _fsrVoltage != 0 && _fsrResistance != 0 )
-  {
-    // The voltage = Vcc * R / (R + FSR) where R = 10K and Vcc = 5V
-    // so FSR = ((Vcc - V) * R) / V yay math!
-    _fsrResistance *= 10000; // 10K resistor // 9.89
-    _fsrResistance /= _fsrVoltage;
-
-    int _fsrConductance = 1000000; // we measure in micromhos so 
-    _fsrConductance /= _fsrResistance;
-    Serial.print("Conductance in microMhos: ");
-    Serial.println(_fsrConductance);
-
-    if (_fsrConductance <= 1000) 
-    {
-      int _fsrForce = _fsrConductance / 80; // Newtons
-      Serial.print("Force in Newtons: ");
-      Serial.println(_fsrForce);  
-      _peso = (_fsrForce/9.8)*1000; // gramos
-    }else {
-      int _fsrForce = _fsrConductance - 1000;
-      _fsrForce /= 30;
-      //Serial.print("Force in Newtons: ");
-      //Serial.println(fsrForce); 
-      Serial.print("Force in Newtons: ");
-      Serial.println(_fsrForce);
-      _peso = (_fsrForce/9.8)*1000; // gramos
-    }
-  }
-  Serial.print("Peso: ");Serial.println(_peso);
-  
-  return SensorMeasurement(Sensor::getID(), Sensor::getObservationProperty(), _peso);
+  return SensorMeasurement(Sensor::getID(), Sensor::getObservationProperty(), getDataSensor());
 }
