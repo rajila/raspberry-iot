@@ -7,4 +7,10 @@
 
 #define _CALIBRATIONFACTOR 399030 // Factor de calibración a 0.200 kg
 
+#define _SECRET_SSID "rdajilaWifi"
+#define _SECRET_PASS "1234izcbMj"
+
+#define _SECRET_CH_ID 639106
+#define _SECRET_WRITE_APIKEY "MFBNHV6LVFEJMKMQ"
+
 #endif
