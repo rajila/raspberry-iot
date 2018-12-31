@@ -2,47 +2,47 @@
 
 char* SensorMeasurement::getID()
 {
-  return this->id;
+  return this->_id;
 }
 
 char* SensorMeasurement::getObserverProperty() 
 {
-  return this->obProp;
+  return this->_obProp;
 }
 
 double SensorMeasurement::getSensorOutput() 
 {
-  return this->out;
+  return this->_out;
 }
 
 void SensorMeasurement::setID(char value[]) 
 {
-  strcpy(this->id,value);
+  strcpy(this->_id,value);
 }
 
 void SensorMeasurement::setObserverProperty(char value[]) 
 {
   if (!(strcmp(value, "int") == 0) && !(strcmp(value,"dbl") == 0) ) return;
-  strcpy(this->obProp, value);
+  strcpy(this->_obProp, value);
 }
 
 void SensorMeasurement::setSensorOutput(double value)
 {
-  if (strcmp(this->obProp, "int") == 0)
-    this->out = (int)value;
+  if (strcmp(this->_obProp, "int") == 0)
+    this->_out = (int)value;
   else
-    this->out = value;
+    this->_out = value;
 }
 
 SensorMeasurement::SensorMeasurement(char id[], char observationProperty[], double sensorOutput)
 {
   if (!(strcmp(observationProperty, "int") == 0) && !(strcmp(observationProperty, "dbl") == 0)) return;
-  strcpy(this->id, id);
-  strcpy(this->obProp, observationProperty);
-  if (strcmp(obProp, "int") == 0)
-    this->out = (int)sensorOutput;
+  strcpy(this->_id, id);
+  strcpy(this->_obProp, observationProperty);
+  if (strcmp(this->_obProp, "int") == 0)
+    this->_out = (int)sensorOutput;
   else
-    this->out = sensorOutput;
+    this->_out = sensorOutput;
 }
 
 /**
@@ -51,28 +51,28 @@ SensorMeasurement::SensorMeasurement(char id[], char observationProperty[], doub
  */
 void Sensor::init(char id[], char observationProperty[])
 {
-  strcpy(this->id, id);
-  strcpy(this->observationProperty, observationProperty);
+  strcpy(this->_id, id);
+  strcpy(this->_observationProperty, observationProperty);
 }
 
 char* Sensor::getID()
 {
-  return this->id;
+  return this->_id;
 }
 
 char* Sensor::getObservationProperty()
 {
-  return this->observationProperty;
+  return this->_observationProperty;
 }
 
 void Sensor::setID(char value[])
 {
-  strcpy(this->id, value);
+  strcpy(this->_id, value);
 }
 
 void Sensor::setObservationProperty(char value[])
 {
-  strcpy(this->observationProperty, value);
+  strcpy(this->_observationProperty, value);
 }
 
 /**
@@ -82,20 +82,25 @@ void Sensor::setObservationProperty(char value[])
 void WaterLevelSensor::init(char id[], char observationProperty[], int analogicPin)
 {
   Sensor::init(id, observationProperty);
-  this->analogicPin = analogicPin;
+  this->_analogicPin = analogicPin;
   pinMode(analogicPin, INPUT);
 }
 
 double WaterLevelSensor::getDataSensor()
 {
   //return (analogRead(this->analogicPin)*100)/1024; // % de nivel de agua
-  return analogRead(this->analogicPin); // % de nivel de agua
+  return analogRead(this->_analogicPin); // % de nivel de agua
 }
 
 SensorMeasurement WaterLevelSensor::monitor()
 {
   //Operación matematica con el valor del sensor
-  return SensorMeasurement(Sensor::getID(), Sensor::getObservationProperty(), getDataSensor());
+  int _percentage;
+  double _value = getDataSensor();
+  _percentage = map(_value, 0, _MAXVALUE_WL, 0, _PERCENTAGEMAX);
+  if (_percentage > 100) _percentage = 100;
+  
+  return SensorMeasurement(Sensor::getID(), Sensor::getObservationProperty(), _percentage);
 }
 
 /**
@@ -104,25 +109,81 @@ SensorMeasurement WaterLevelSensor::monitor()
 void DigitalBalanceSensor::init(char id[], char observationProperty[], int analogicPinDOUT, int analogicPinSCK)
 {
   Sensor::init(id, observationProperty);
-  this->analogicPinDOUT = analogicPinDOUT;
-  this->analogicPinSCK = analogicPinSCK;
-  this->balanza.begin(analogicPinDOUT,analogicPinSCK);
-  this->balanza.set_scale();
-  this->balanza.tare();
-  this->balanza.set_scale(_CALIBRATIONFACTOR);
+  this->_analogicPinDOUT = analogicPinDOUT;
+  this->_analogicPinSCK = analogicPinSCK;
+  this->_digitalBalance.begin(analogicPinDOUT,analogicPinSCK);
+  this->_digitalBalance.set_scale();
+  this->_digitalBalance.tare();
+  this->_digitalBalance.set_scale(_CALIBRATIONFACTOR);
 }
 
 double DigitalBalanceSensor::getDataSensor()
 {
-  return this->balanza.get_units(); // Kg
+  return this->_digitalBalance.get_units(); // Kg
 }
 
-HX711 DigitalBalanceSensor::getBalanza()
+HX711 DigitalBalanceSensor::getDigitalBalance()
 {
-  return this->balanza;
+  return this->_digitalBalance;
 }
 
 SensorMeasurement DigitalBalanceSensor::monitor()
 {
-  return SensorMeasurement(Sensor::getID(), Sensor::getObservationProperty(), getDataSensor());
+  return SensorMeasurement(Sensor::getID(), Sensor::getObservationProperty(), getDataSensor() * 1000);
+}
+
+/**
+ * 
+ */
+void Thing::init(char idThing[])
+{
+  strcpy(this->_idThing, idThing);
+  this->_timeClient.init(this->_ntpUDP);
+  this->_timeClient.begin();
+  this->_timeClient.setTimeOffset(3600);
+}
+
+void Thing::attach(ISensor &sensor)
+{
+  this->_sensors.Add(&sensor);
+}
+
+char* Thing::getIdThing()
+{
+  return this->_idThing;
+}
+
+char* Thing::getStringJSON()
+{
+  StaticJsonDocument<250> _doc;
+  JsonObject _root = _doc.to<JsonObject>();
+
+  JsonObject _dispensator = _root.createNestedObject("dispensator");
+  _dispensator["idThing"] = this->_idThing;
+  
+  JsonObject _obs = _dispensator.createNestedObject("obs");
+  while(!this->_timeClient.update()){this->_timeClient.forceUpdate();}
+  _obs["time"] = this->_timeClient.getFormattedDate();
+
+  JsonArray _sensor = _obs.createNestedArray("sensor");
+  for ( int i = 0; i < this->_sensors.Count(); i++ )
+  {
+    SensorMeasurement _sMeasurement = this->_sensors[i]->monitor();
+    JsonObject _measurement = _sensor.createNestedObject();
+    _measurement["id"] = _sMeasurement.getID();
+    _measurement["obProp"] = _sMeasurement.getObserverProperty();
+    _measurement["out"] = _sMeasurement.getSensorOutput();
+  }
+  
+  serializeJson(_root, this->_stringJSON);
+  
+  return this->_stringJSON;
+}
+
+void Thing::sendDataThingSpeak()
+{
+  //int _status = ThingSpeak.writeField(_SECRET_CH_ID, 1, getStringJSON(), _SECRET_WRITE_APIKEY);
+  //if( _status == 200 ) Serial.println("Channel update successful.");
+  //else Serial.println("Problem updating channel. HTTP error code " + String(_status));
+  Serial.println(getStringJSON());
 }

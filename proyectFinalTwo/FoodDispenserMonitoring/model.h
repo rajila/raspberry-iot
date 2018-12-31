@@ -1,17 +1,24 @@
 #ifndef MODEL_H
 #define MODEL_H
 
+#include <WiFi.h>
+#include <ThingSpeak.h>
 #include <Arduino.h> //Permite utilizar los comandos de Arduino
 #include <stdio.h>
 #include <HX711.h>
+#include <ListLib.h>
+#include <ArduinoJson.h>
+#include <NTPClient.h>
+#include <WiFiUdp.h>
+#include <math.h>
 #include "constants.h"
 
 class SensorMeasurement 
 {
   private:
-    char id[100];
-    char obProp[100];
-    double out;
+    char _id[100];
+    char _obProp[100];
+    double _out;
   
   public:
     char* getID();
@@ -34,8 +41,8 @@ class ISensor
 class Sensor : public ISensor 
 {
   private:
-    char id[100]; // identificador del sensor: hum, temp
-    char observationProperty[100]; // Indica el tipo de dato
+    char _id[100]; // identificador del sensor: hum, temp
+    char _observationProperty[100]; // Indica el tipo de dato
 
   public:
     void init(char id[], char observationProperty[]);
@@ -49,7 +56,7 @@ class Sensor : public ISensor
 class WaterLevelSensor : public Sensor 
 {
   private:
-    int analogicPin;
+    int _analogicPin;
      
   public:
     void init(char id[], char observationProperty[], int analogicPin);
@@ -60,15 +67,33 @@ class WaterLevelSensor : public Sensor
 class DigitalBalanceSensor : public Sensor 
 { 
   private:
-    int analogicPinDOUT;
-    int analogicPinSCK;
-    HX711 balanza;
+    int _analogicPinDOUT;
+    int _analogicPinSCK;
+    HX711 _digitalBalance;
     
   public:
     void init(char id[], char observationProperty[], int analogicPinDOUT, int analogicPinSCK );
     SensorMeasurement monitor();
     double getDataSensor();
-    HX711 getBalanza();
+    HX711 getDigitalBalance();
+};
+
+class Thing
+{
+  private:
+    char _idThing[100];
+    char _stringJSON[200];
+    List<ISensor*> _sensors;
+    WiFiUDP _ntpUDP;
+    NTPClient _timeClient;
+
+    char* getStringJSON();
+    
+  public:
+    void init(char idThing[]);
+    void attach(ISensor &sensor);
+    char* getIdThing();
+    void sendDataThingSpeak();
 };
 
 #endif
