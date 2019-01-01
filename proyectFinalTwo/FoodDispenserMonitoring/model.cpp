@@ -79,28 +79,22 @@ void Sensor::setObservationProperty(char value[])
  * 
  * 
  */
-void WaterLevelSensor::init(char id[], char observationProperty[], int analogicPin)
+void WaterLevelSensor::init(char id[], char observationProperty[], int analogicPinTRIG, int analogicPinECHO)
 {
   Sensor::init(id, observationProperty);
-  this->_analogicPin = analogicPin;
-  pinMode(analogicPin, INPUT);
+  this->_analogicPinTRIG = analogicPinTRIG;
+  this->_analogicPinECHO = analogicPinECHO;
+  this->_ultraSonic.init(analogicPinTRIG,analogicPinECHO,_MAX_DISTANCE);
 }
 
 double WaterLevelSensor::getDataSensor()
 {
-  //return (analogRead(this->analogicPin)*100)/1024; // % de nivel de agua
-  return analogRead(this->_analogicPin); // % de nivel de agua
+  return this->_ultraSonic.ping_cm(); // distancia en cm
 }
 
 SensorMeasurement WaterLevelSensor::monitor()
 {
-  //Operación matematica con el valor del sensor
-  int _percentage;
-  double _value = getDataSensor();
-  _percentage = map(_value, 0, _MAXVALUE_WL, 0, _PERCENTAGEMAX);
-  if (_percentage > 100) _percentage = 100;
-  
-  return SensorMeasurement(Sensor::getID(), Sensor::getObservationProperty(), _percentage);
+  return SensorMeasurement(Sensor::getID(), Sensor::getObservationProperty(), getDataSensor());
 }
 
 /**

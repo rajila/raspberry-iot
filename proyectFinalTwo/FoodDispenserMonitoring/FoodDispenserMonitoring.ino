@@ -17,7 +17,7 @@ void setup()
 {
   Serial.begin(115200);
   setupWIFI();
-  _wtlSensor.init((char*)"wtl",(char*)"int", _WATERLEVEL_PIN);
+  _wtlSensor.init((char*)"wtl",(char*)"int", _WATERLEVEL_TRIG_PIN, _WATERLEVEL_ECHO_PIN);
   _dgbSensor.init((char*)"dgb",(char*)"int",_DIGITALBALANCE_DOUT_PIN, _DIGITALBALANCE_CLK_PIN);
   _thing.init((char*)"1234");
   _thing.attach(_wtlSensor);

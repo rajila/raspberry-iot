@@ -5,6 +5,7 @@
 #include <ThingSpeak.h>
 #include <Arduino.h> //Permite utilizar los comandos de Arduino
 #include <stdio.h>
+#include <NewPing.h>
 #include <HX711.h>
 #include <ListLib.h>
 #include <ArduinoJson.h>
@@ -56,10 +57,12 @@ class Sensor : public ISensor
 class WaterLevelSensor : public Sensor 
 {
   private:
-    int _analogicPin;
+    int _analogicPinTRIG;
+    int _analogicPinECHO;
+    NewPing _ultraSonic;
      
   public:
-    void init(char id[], char observationProperty[], int analogicPin);
+    void init(char id[], char observationProperty[], int analogicPinTRIG, int analogicPinECHO);
     SensorMeasurement monitor();
     double getDataSensor();
 };
