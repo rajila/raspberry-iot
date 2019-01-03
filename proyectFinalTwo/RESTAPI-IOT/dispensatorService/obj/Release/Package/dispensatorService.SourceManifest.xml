@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<sitemanifest>
-  <DbDacFx path="C:\Users\RONALD\Desktop\raspberry-iot\proyectFinalTwo\RESTAPI-IOT\dispensatorService\obj\Release\AutoScripts\dispensatorServiceContext_IncrementalSchemaOnly.dacpac" dacpacAction="Deploy" />
-  <IisApp path="C:\Users\RONALD\Desktop\raspberry-iot\proyectFinalTwo\RESTAPI-IOT\dispensatorService\obj\Release\Package\PackageTmp" />
-  <setAcl path="C:\Users\RONALD\Desktop\raspberry-iot\proyectFinalTwo\RESTAPI-IOT\dispensatorService\obj\Release\Package\PackageTmp" setAclResourceType="Directory" />
-  <setAcl path="C:\Users\RONALD\Desktop\raspberry-iot\proyectFinalTwo\RESTAPI-IOT\dispensatorService\obj\Release\Package\PackageTmp" setAclUser="anonymousAuthenticationUser" setAclResourceType="Directory" />
-</sitemanifest>

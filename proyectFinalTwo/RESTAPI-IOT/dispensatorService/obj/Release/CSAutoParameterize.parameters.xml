@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<parameters>
-  <parameter name="dispensatorServiceContext-Web.config Connection String" description="dispensatorServiceContext Cadena de conexión que usa la aplicación en web.config para obtener acceso a la base de datos." defaultValue="Data Source=(localdb)\MSSQLLocalDB; Initial Catalog=dispensatorServiceContext-20181221115500; Integrated Security=True; MultipleActiveResultSets=True; AttachDbFilename=|DataDirectory|dispensatorServiceContext-20181221115500.mdf" tags="SqlConnectionString">
-    <parameterEntry kind="XmlFile" scope="C:\\Users\\RONALD\\Desktop\\raspberry-iot\\proyectFinalTwo\\RESTAPI-IOT\\dispensatorService\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='dispensatorServiceContext']/@connectionString" />
-  </parameter>
-</parameters>
