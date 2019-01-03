@@ -1,0 +1,60 @@
+Comandos para migracion de base de datos
+	* enable-migrations
+	* add-migration primera
+	* update-database
+	
+Scripts DB
+	select * from dbo.FoodHours;
+	INSERT INTO dbo.FoodHours (FoodHourType, Hour) VALUES ('NOCHE', '20:20:00');
+	UPDATE dbo.FoodHours SET Hour = '19:55:00' WHERE FoodHourId = 1;
+	
+	
+Casos de prueba para ejecutar descarga de alimentos
+
+	M: 23:14:20
+	D: 23:14:50
+	-30
+
+	M: 23.14.45
+	D: 23:14:50
+	-5
+
+	M: 23.15.10
+	D: 23:14:50
+	20
+
+	M: 23.15.35
+	D: 23.14.50
+	45
+
+	--------------
+
+	M: 23:14:20
+	D: 23:14:45
+	-25
+
+	M: 23:14:45
+	D: 23:14:45
+	0
+
+	M: 23:15:10
+	D: 23:14:45
+	25
+
+	-------------
+	
+	M: 23:14:10
+	D: 23:14:45
+	-35
+
+	M: 23:14:35
+	D: 23:14:45
+	-10
+
+	M: 23:15:00
+	D: 23:14:45
+	15
+
+	M: 23:15:25
+	D: 23:14:45
+	40
