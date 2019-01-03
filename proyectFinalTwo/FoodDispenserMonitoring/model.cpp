@@ -152,7 +152,7 @@ char* Thing::getStringJSON()
   StaticJsonDocument<250> _doc;
   JsonObject _root = _doc.to<JsonObject>();
 
-  JsonObject _dispensator = _root.createNestedObject("dispensator");
+  JsonObject _dispensator = _root.createNestedObject("dispenser");
   _dispensator["idThing"] = this->_idThing;
   
   JsonObject _obs = _dispensator.createNestedObject("obs");
