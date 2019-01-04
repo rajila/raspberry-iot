@@ -79,7 +79,8 @@ namespace dispenserService.Controllers
             {
                 return BadRequest(ModelState);
             }
-
+            DateTime _time = DateTime.Now;
+            log.CurrentDateTime = _time;
             db.Logs.Add(log);
             await db.SaveChangesAsync();
 

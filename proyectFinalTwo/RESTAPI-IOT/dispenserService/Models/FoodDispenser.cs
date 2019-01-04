@@ -18,9 +18,7 @@ namespace dispenserService.Models
         public double AmountFoodDownloaded { get; set; }
         public int AngleServoFood { get; set; }
         public int OpeningSecondsFood { get; set; }
-        [DataType(DataType.Date)]
-        public DateTime CurrentDate { get; set; }
-        [DataType(DataType.Time)]
-        public DateTime CurrentTime { get; set; }
+        [DataType(DataType.DateTime)]
+        public DateTime CurrentDateTime { get; set; }
     }
 }

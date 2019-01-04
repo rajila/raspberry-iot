@@ -18,9 +18,7 @@ namespace dispenserService.Models
         public double MilliLiterWaterDownloaded { get; set; }
         public int AngleServoWater { get; set; }
         public int OpeningSecondsWater { get; set; }
-        [DataType(DataType.Date)]
-        public DateTime CurrentDate { get; set; }
-        [DataType(DataType.Time)]
-        public DateTime CurrentTime { get; set; }
+        [DataType(DataType.DateTime)]
+        public DateTime CurrentDateTime { get; set; }
     }
 }

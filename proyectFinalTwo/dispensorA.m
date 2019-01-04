@@ -189,8 +189,14 @@ end
 
 %dateString = datestr(now,'yyyy-mm-dd HH:MM:SS');
 
-% Building the string whit the JSON and sending to Talkback
-logJSON = strcat('{"ThingId": "',idThing,'","ActionType": "AUTOMATIC","AmountDailyFood": ',num2str(amountDailyFoodDB),',"FoodPortion": ',num2str(foodPortion),',"MilliLiterWater": ',num2str(milliLiterWater),',"MinPercentWater": ',num2str(minPercentWater),',"CurrentAmountFood": ',num2str(amountFoodCurrent),',"AmountFoodDownloaded": ',num2str(diffFood),',"CurrentMilliLiterWater": ',num2str(milliliterWaterCurrent),',"MilliLiterWaterDownloaded": ',num2str(diffmilliLiterWater),',"AngleServoFood": ',num2str(angleServoFood),',"OpeningSecondsFood": ',num2str(openingSecondsFood),',"AngleServoWater": ',num2str(angleServoWater),',"OpeningSecondsWater": ',num2str(openingSecondsWater),'}');
+% Inserta Log en REST API dispensorService AZURE
+urlLogs = strcat('https://dispenserservice.azurewebsites.net/api/Logs');
+% Building the string whit the JSON and sending to REST API dispensorService Logs
+bodyLogsJSON = strcat('{"ThingId": "',idThing,'","ActionType": "AUTOMATIC","AmountDailyFood": ',num2str(amountDailyFoodDB),',"FoodPortion": ',num2str(foodPortion),',"MilliLiterWater": ',num2str(milliLiterWater),',"MinPercentWater": ',num2str(minPercentWater),',"CurrentAmountFood": ',num2str(amountFoodCurrent),',"AmountFoodDownloaded": ',num2str(diffFood),',"CurrentMilliLiterWater": ',num2str(milliliterWaterCurrent),',"MilliLiterWaterDownloaded": ',num2str(diffmilliLiterWater),',"AngleServoFood": ',num2str(angleServoFood),',"OpeningSecondsFood": ',num2str(openingSecondsFood),',"AngleServoWater": ',num2str(angleServoWater),',"OpeningSecondsWater": ',num2str(openingSecondsWater),'}');
+optionsLogs = weboptions('ContentType','json','ArrayFormat','json','RequestMethod','post','MediaType','application/json');
+responseLogsJSON = webwrite( urlLogs, bodyLogsJSON, optionsLogs);
+
+pause (1);
 
 %if( dispenserFood == 1 )
 %else 
