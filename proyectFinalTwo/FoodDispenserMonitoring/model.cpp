@@ -94,7 +94,7 @@ double WaterLevelSensor::getDataSensor()
 
 SensorMeasurement WaterLevelSensor::monitor()
 {
-  return SensorMeasurement(Sensor::getID(), Sensor::getObservationProperty(), getDataSensor());
+  return SensorMeasurement(Sensor::getID(), Sensor::getObservationProperty(), getDataSensor()*50); // centrimetros cubicos: 1 cm --> 50ml
 }
 
 /**
@@ -123,7 +123,7 @@ HX711 DigitalBalanceSensor::getDigitalBalance()
 
 SensorMeasurement DigitalBalanceSensor::monitor()
 {
-  return SensorMeasurement(Sensor::getID(), Sensor::getObservationProperty(), getDataSensor() * 1000);
+  return SensorMeasurement(Sensor::getID(), Sensor::getObservationProperty(), getDataSensor() * 1000); //gramos
 }
 
 /**

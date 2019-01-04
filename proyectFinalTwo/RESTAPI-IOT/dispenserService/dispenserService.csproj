@@ -142,6 +142,10 @@
     <Compile Include="Migrations\201901031748523_primera.Designer.cs">
       <DependentUpon>201901031748523_primera.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901040052441_segunda.cs" />
+    <Compile Include="Migrations\201901040052441_segunda.Designer.cs">
+      <DependentUpon>201901040052441_segunda.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Configuration.cs" />
     <Compile Include="Models\dispenserServiceContext.cs" />
@@ -171,6 +175,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201901031748523_primera.resx">
       <DependentUpon>201901031748523_primera.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901040052441_segunda.resx">
+      <DependentUpon>201901040052441_segunda.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

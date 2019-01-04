@@ -72,23 +72,20 @@ for m=1:2
     end
 end %del for
 
+if(data(1,2) < 0)
+    amountFoodCurrent = 0;
+else
+    amountFoodCurrent = data(1,2);
+end
+milliliterWaterCurrent = data(1,1);
 
-% Uncooment to visualize the results
-%display (data(1,1), 'Water Level')
-%display (data(1,2), 'Digital Balance')
-%display (idThing,'idThing')
-
-% Prueba de envio Azure
-% AZURE
+% Consulta de Horarios de alimentación AZURE
 urlTB = strcat('https://dispenserservice.azurewebsites.net/api/FoodHours');
 optionsTB = weboptions('RequestMethod','GET','MediaType','application/json');
 valFoodH = webread(urlTB,optionsTB);
 
 pause (1);
 
-%t = datetime('now','TimeZone','local','Format','HH:mm:ss');
-%timeCurrentt = datetime('now','TimeZone','local','Format','HH:mm:ss');
-%timeCurrent = datestr(now,'HH:MM:SS');
 timeCurrentL = strsplit(datestr(now,'HH:MM:SS'),':');
 dataSecondsCurrent = zeros(1,3);
 dataSecondsCurrent(1,1) = str2double(timeCurrentL(1))*60*60;
@@ -96,7 +93,7 @@ dataSecondsCurrent(1,2) = str2double(timeCurrentL(2))*60;
 dataSecondsCurrent(1,3) = str2double(timeCurrentL(3));
 totalSegCurrent = sum(dataSecondsCurrent);
 
-dispenserFood = 0;
+dispenserFood = 1; % Default a 0
 dataSecondsDB = zeros(1,3);
 for m = 1:length(valFoodH)
     hourDB = valFoodH(m).Hour;
@@ -112,4 +109,22 @@ for m = 1:length(valFoodH)
         break;
     end
 end
-dispenserFood
+
+% Consulta de Horarios de alimentación AZURE
+urlTB = strcat('https://dispenserservice.azurewebsites.net/api/Configurations');
+optionsTB = weboptions('RequestMethod','GET','MediaType','application/json');
+valConfigurationDB = webread(urlTB,optionsTB);
+    
+pause (1);
+
+amountDailyFoodDB = valConfigurationDB(1).AmountDailyFood;
+foodPortion = amountDailyFoodDB/length(valFoodH);
+milliLiterWater = valConfigurationDB(1).MilliLiterWater;
+minPercentWater = valConfigurationDB(1).MinPercentWater;
+milliLiterMin = (milliLiterWater*minPercentWater)/100;
+
+
+
+%if( dispenserFood == 1 )
+%else 
+%end

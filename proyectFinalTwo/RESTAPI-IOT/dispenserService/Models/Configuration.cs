@@ -11,8 +11,7 @@ namespace dispenserService.Models
         [Key]
         public int ConfigurationId { get; set; }
         public double AmountDailyFood { get; set; }
-        public double FoodPortion { get; set; }
-        public double LiterWater { get; set; }
+        public double MilliLiterWater { get; set; }
         public int MinPercentWater { get; set; }
 
         [DataType(DataType.DateTime)]

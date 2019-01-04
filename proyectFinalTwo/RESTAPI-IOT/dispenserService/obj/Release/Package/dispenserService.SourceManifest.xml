@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <sitemanifest>
-  <DbDacFx path="C:\Users\RONALD\source\repos\RESTAPI-IOT\dispenserService\obj\Release\AutoScripts\dispenserServiceContext_IncrementalSchemaOnly.dacpac" dacpacAction="Deploy" />
-  <IisApp path="C:\Users\RONALD\source\repos\RESTAPI-IOT\dispenserService\obj\Release\Package\PackageTmp" />
-  <setAcl path="C:\Users\RONALD\source\repos\RESTAPI-IOT\dispenserService\obj\Release\Package\PackageTmp" setAclResourceType="Directory" />
-  <setAcl path="C:\Users\RONALD\source\repos\RESTAPI-IOT\dispenserService\obj\Release\Package\PackageTmp" setAclUser="anonymousAuthenticationUser" setAclResourceType="Directory" />
+  <DbDacFx path="C:\Users\RONALD\Desktop\raspberry-iot\proyectFinalTwo\RESTAPI-IOT\dispenserService\obj\Release\AutoScripts\dispenserServiceContext_IncrementalSchemaOnly.dacpac" dacpacAction="Deploy" />
+  <IisApp path="C:\Users\RONALD\Desktop\raspberry-iot\proyectFinalTwo\RESTAPI-IOT\dispenserService\obj\Release\Package\PackageTmp" />
+  <setAcl path="C:\Users\RONALD\Desktop\raspberry-iot\proyectFinalTwo\RESTAPI-IOT\dispenserService\obj\Release\Package\PackageTmp" setAclResourceType="Directory" />
+  <setAcl path="C:\Users\RONALD\Desktop\raspberry-iot\proyectFinalTwo\RESTAPI-IOT\dispenserService\obj\Release\Package\PackageTmp" setAclUser="anonymousAuthenticationUser" setAclResourceType="Directory" />
 </sitemanifest>
