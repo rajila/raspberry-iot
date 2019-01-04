@@ -93,7 +93,7 @@ dataSecondsCurrent(1,2) = str2double(timeCurrentL(2))*60;
 dataSecondsCurrent(1,3) = str2double(timeCurrentL(3));
 totalSegCurrent = sum(dataSecondsCurrent);
 
-dispenserFood = 1; % Default a 0
+dispenserFood = 0; % Default a 0
 dataSecondsDB = zeros(1,3);
 for m = 1:length(valFoodH)
     hourDB = valFoodH(m).Hour;
@@ -121,9 +121,76 @@ amountDailyFoodDB = valConfigurationDB(1).AmountDailyFood;
 foodPortion = amountDailyFoodDB/length(valFoodH);
 milliLiterWater = valConfigurationDB(1).MilliLiterWater;
 minPercentWater = valConfigurationDB(1).MinPercentWater;
-milliLiterMin = (milliLiterWater*minPercentWater)/100;
+milliLiterWaterMin = (milliLiterWater*minPercentWater)/100;
 
+dispenserWater = 0;
+if( milliliterWaterCurrent <= milliLiterWaterMin )
+    dispenserWater = 1;
+end
 
+diffFood = foodPortion - amountFoodCurrent;
+diffmilliLiterWater = milliLiterWater - milliliterWaterCurrent;
+
+% Reglas para dispensarn Alimentos
+angleServoFood = 0;
+openingSecondsFood = 5;
+if( diffFood <= 0 )
+    angleServoFood = 0;
+    openingSecondsFood = 0;
+elseif(diffFood <= (foodPortion*0.10))
+    angleServoFood = 10;
+elseif(diffFood <= (foodPortion*0.20))
+    angleServoFood = 20;
+elseif(diffFood <= (foodPortion*0.30))
+    angleServoFood = 30;
+elseif(diffFood <= (foodPortion*0.40))
+    angleServoFood = 40;
+elseif(diffFood <= (foodPortion*0.50))
+    angleServoFood = 50;
+elseif(diffFood <= (foodPortion*0.60))
+    angleServoFood = 60;
+elseif(diffFood <= (foodPortion*0.70))
+    angleServoFood = 70;
+elseif(diffFood <= (foodPortion*0.80))
+    angleServoFood = 80;
+elseif(diffFood <= (foodPortion*0.90))
+    angleServoFood = 90;
+else
+    angleServoFood = 120;
+end
+
+% Reglas para dispensar Agua
+angleServoWater = 0;
+openingSecondsWater = 5;
+if (diffmilliLiterWater <= 0)
+    angleServoWater = 0;
+    openingSecondsWater = 0;
+elseif(diffmilliLiterWater <= (milliLiterWater*0.10))
+    angleServoWater = 10;
+elseif(diffmilliLiterWater <= (milliLiterWater*0.20))
+    angleServoWater = 20;
+elseif(diffmilliLiterWater <= (milliLiterWater*0.30))
+    angleServoWater = 30;
+elseif(diffmilliLiterWater <= (milliLiterWater*0.40))
+    angleServoWater = 40;
+elseif(diffmilliLiterWater <= (milliLiterWater*0.50))
+    angleServoWater = 50;
+elseif(diffmilliLiterWater <= (milliLiterWater*0.60))
+    angleServoWater = 60;
+elseif(diffmilliLiterWater <= (milliLiterWater*0.70))
+    angleServoWater = 70;
+elseif(diffmilliLiterWater <= (milliLiterWater*0.80))
+    angleServoWater = 80;
+elseif(diffmilliLiterWater <= (milliLiterWater*0.90))
+    angleServoWater = 90;
+else
+    angleServoWater = 120;
+end
+
+%dateString = datestr(now,'yyyy-mm-dd HH:MM:SS');
+
+% Building the string whit the JSON and sending to Talkback
+logJSON = strcat('{"ThingId": "',idThing,'","ActionType": "AUTOMATIC","AmountDailyFood": ',num2str(amountDailyFoodDB),',"FoodPortion": ',num2str(foodPortion),',"MilliLiterWater": ',num2str(milliLiterWater),',"MinPercentWater": ',num2str(minPercentWater),',"CurrentAmountFood": ',num2str(amountFoodCurrent),',"AmountFoodDownloaded": ',num2str(diffFood),',"CurrentMilliLiterWater": ',num2str(milliliterWaterCurrent),',"MilliLiterWaterDownloaded": ',num2str(diffmilliLiterWater),',"AngleServoFood": ',num2str(angleServoFood),',"OpeningSecondsFood": ',num2str(openingSecondsFood),',"AngleServoWater": ',num2str(angleServoWater),',"OpeningSecondsWater": ',num2str(openingSecondsWater),'}');
 
 %if( dispenserFood == 1 )
 %else 
