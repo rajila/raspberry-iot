@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using dispenserService.Models;
+using dispenserService.Util;
 
 namespace dispenserService.Controllers
 {
@@ -21,6 +22,23 @@ namespace dispenserService.Controllers
         public IQueryable<Configuration> GetConfigurations()
         {
             return db.Configurations;
+        }
+
+        [Route("api/Dispenser")]
+        [HttpGet]
+        public Dispenser GetDispenser()
+        {
+            DateTime _time = DateTime.Now;
+            Dispenser _dispenser = new Dispenser();
+            _dispenser.ListConfiguration = db.Configurations.ToList();
+            _dispenser.ListFoodHour = db.FoodHours.ToList();
+            _dispenser.ListFoodDispenser = db.FoodDispensers.Where(s => s.CurrentDateTime.Year == _time.Year &&
+                                                   s.CurrentDateTime.Month == _time.Month &&
+                                                   s.CurrentDateTime.Day == _time.Day).ToList();
+            _dispenser.ListWaterDispenser = db.WaterDispensers.Where(s => s.CurrentDateTime.Year == _time.Year &&
+                                                   s.CurrentDateTime.Month == _time.Month &&
+                                                   s.CurrentDateTime.Day == _time.Day).ToList();
+            return _dispenser;
         }
 
         // GET: api/Configurations/5

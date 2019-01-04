@@ -158,6 +158,7 @@
     <Compile Include="Models\Log.cs" />
     <Compile Include="Models\WaterDispenser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\Dispenser.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ApplicationInsights.config">
