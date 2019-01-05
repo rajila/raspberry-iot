@@ -4,27 +4,19 @@ ChannelIDInputJSON = 667670;
 % Channel Read API Key 
 readAPIKeyInputJSON = 'YSBXCABAK2L88NM3';
 
-%%%% Information about 'THL' Channel
-%%%% Channel ID
-%%%%ChannelIDTHL = 639107;
-%%%% Channel Read API Key 
-%%%%readAPIKeyTHL = 'IKH4TCFWRIT3GG2G'
-%%%% Channel Write API Key
-%%%%writeAPIKeyTHL = 'LZSMN2D2DNV88ANH';
+% Information about 'Water & Food Dispenser' Channel
+% Channel ID 
+ChannelIDWFD = 668761;
+% Channel Read API Key
+readAPIKeyWFD = '1PM6BPHGRM8HNSJZ';
+% Channel Write API Key   
+writeAPIKeyWFD ='JD0IUXEYPMYX2I1S';
 
-%%%% Information about 'Canal PC' Channel
-%%%% Channel ID 
-%%%%ChannelIDPC = 639108;
-%%%% Channel Read API Key
-%%%%readAPIKeyPC = '70TLR15YZYKI4HLV'
-%%%% Channel Write API Key   
-%%%%writeAPIKeyPC='IA2CCD97ZJQEVBUF'
-
-%%%% Talkback Identification
-%%%% TalkBack app ID
-%%%%TalkBack_ID = '29518';
-%%%% TalkBack app API key
-%%%%TalkBack_apikey = 'ARLVXFW6CHWBAH42';
+% Talkback Identification
+% TalkBack app ID
+TalkBack_ID = '30174';
+% TalkBack app API key
+TalkBack_apikey = '82VRSK83J7RYH5OF';
 
 
 % Reading the JSON in field1 'Input channel. JSON Planta' Channel 
@@ -79,10 +71,10 @@ else
 end
 milliliterWaterCurrent = data(1,1);
 
-% Consulta de Horarios de alimentación AZURE
-urlTB = strcat('https://dispenserservice.azurewebsites.net/api/FoodHours');
+% Consulta de Datos del Dispensador
+urlTB = strcat('https://dispenserservice.azurewebsites.net/api/Dispenser');
 optionsTB = weboptions('RequestMethod','GET','MediaType','application/json');
-valFoodH = webread(urlTB,optionsTB);
+valDispenserJSON = webread(urlTB,optionsTB);
 
 pause (1);
 
@@ -93,10 +85,10 @@ dataSecondsCurrent(1,2) = str2double(timeCurrentL(2))*60;
 dataSecondsCurrent(1,3) = str2double(timeCurrentL(3));
 totalSegCurrent = sum(dataSecondsCurrent);
 
-dispenserFood = 0; % Default a 0
+dispenseFood = 0; % Default a 0
 dataSecondsDB = zeros(1,3);
-for m = 1:length(valFoodH)
-    hourDB = valFoodH(m).Hour;
+for m = 1:length(valDispenserJSON.ListFoodHour)
+    hourDB = valDispenserJSON.ListFoodHour(m).Hour;
     hourDBL = strsplit(hourDB,'T');
     timeCurrentDBL = strsplit(datestr(hourDBL(2),'HH:MM:SS'),':');
     dataSecondsDB(1,1) = str2double(timeCurrentDBL(1))*60*60;
@@ -105,31 +97,39 @@ for m = 1:length(valFoodH)
     totalSegDB = sum(dataSecondsDB);
     diffSeg = totalSegCurrent - totalSegDB;
     if( diffSeg >=0 && diffSeg < 25 )
-        dispenserFood = 1;
+        dispenseFood = 1;
         break;
     end
 end
 
-% Consulta de Horarios de alimentación AZURE
-urlTB = strcat('https://dispenserservice.azurewebsites.net/api/Configurations');
-optionsTB = weboptions('RequestMethod','GET','MediaType','application/json');
-valConfigurationDB = webread(urlTB,optionsTB);
-    
-pause (1);
-
-amountDailyFoodDB = valConfigurationDB(1).AmountDailyFood;
-foodPortion = amountDailyFoodDB/length(valFoodH);
-milliLiterWater = valConfigurationDB(1).MilliLiterWater;
-minPercentWater = valConfigurationDB(1).MinPercentWater;
+amountDailyFoodDB = valDispenserJSON.ListConfiguration(1).AmountDailyFood;
+foodPortion = amountDailyFoodDB/length(valDispenserJSON.ListFoodHour);
+milliLiterWater = valDispenserJSON.ListConfiguration(1).MilliLiterWater;
+minPercentWater = valDispenserJSON.ListConfiguration(1).MinPercentWater;
 milliLiterWaterMin = (milliLiterWater*minPercentWater)/100;
 
-dispenserWater = 0;
+dispenseWater = 0;
 if( milliliterWaterCurrent <= milliLiterWaterMin )
-    dispenserWater = 1;
+    dispenseWater = 1;
+end
+
+if(length(valDispenserJSON.ListFoodDispenser) == 0)
+    amountFoodAvailable = amountDailyFoodDB;
+else
+    amountFoodAvailable = amountDailyFoodDB - sum(valDispenserJSON.ListFoodDispenser.AmountFoodDownloaded);
 end
 
 diffFood = foodPortion - amountFoodCurrent;
 diffmilliLiterWater = milliLiterWater - milliliterWaterCurrent;
+
+if( amountFoodAvailable <= 0 )
+    dispenseFood = 0;
+else
+    if( diffFood > amountFoodAvailable )
+        diffFood = amountFoodAvailable;
+    end
+end
+
 
 % Reglas para dispensarn Alimentos
 angleServoFood = 0;
@@ -192,12 +192,78 @@ end
 % Inserta Log en REST API dispensorService AZURE
 urlLogs = strcat('https://dispenserservice.azurewebsites.net/api/Logs');
 % Building the string whit the JSON and sending to REST API dispensorService Logs
-bodyLogsJSON = strcat('{"ThingId": "',idThing,'","ActionType": "AUTOMATIC","AmountDailyFood": ',num2str(amountDailyFoodDB),',"FoodPortion": ',num2str(foodPortion),',"MilliLiterWater": ',num2str(milliLiterWater),',"MinPercentWater": ',num2str(minPercentWater),',"CurrentAmountFood": ',num2str(amountFoodCurrent),',"AmountFoodDownloaded": ',num2str(diffFood),',"CurrentMilliLiterWater": ',num2str(milliliterWaterCurrent),',"MilliLiterWaterDownloaded": ',num2str(diffmilliLiterWater),',"AngleServoFood": ',num2str(angleServoFood),',"OpeningSecondsFood": ',num2str(openingSecondsFood),',"AngleServoWater": ',num2str(angleServoWater),',"OpeningSecondsWater": ',num2str(openingSecondsWater),'}');
+bodyLogsJSON = strcat('{"ThingId": "',idThing,'","ActionType": "AUTOMATIC","AmountDailyFood": ',num2str(amountDailyFoodDB),',"FoodPortion": ',num2str(foodPortion),',"MilliLiterWater": ',num2str(milliLiterWater),',"MinPercentWater": ',num2str(minPercentWater),',"CurrentAmountFood": ',num2str(amountFoodCurrent),',"AmountFoodDownloaded": ',num2str(diffFood),',"CurrentMilliLiterWater": ',num2str(milliliterWaterCurrent),',"MilliLiterWaterDownloaded": ',num2str(diffmilliLiterWater),',"AngleServoFood": ',num2str(angleServoFood),',"OpeningSecondsFood": ',num2str(openingSecondsFood),',"AngleServoWater": ',num2str(angleServoWater),',"OpeningSecondsWater": ',num2str(openingSecondsWater),',"DispenseFood": ',num2str(dispenseFood),',"DispenseWater": ',num2str(dispenseWater),'}');
 optionsLogs = weboptions('ContentType','json','ArrayFormat','json','RequestMethod','post','MediaType','application/json');
 responseLogsJSON = webwrite( urlLogs, bodyLogsJSON, optionsLogs);
 
 pause (1);
 
-%if( dispenserFood == 1 )
-%else 
-%end
+if(dispenseFood == 1 && dispenseWater == 1)
+    dispenseType = 3; % Dispensa Food & Water
+elseif(dispenseFood == 0 && dispenseWater == 0)
+    dispenseType = 0; % No Dispensa Food Ni Water
+elseif(dispenseFood == 1 && dispenseWater == 0)
+    dispenseType = 1; % Dispensa Food
+else
+    dispenseType = 2; % Dispensa Water
+end
+
+% Sending data values to 'Water & Food Dispenser' Channel
+thingSpeakWrite(ChannelIDWFD, {idThing, diffFood, angleServoFood, openingSecondsFood, diffmilliLiterWater, angleServoWater, openingSecondsWater, dispenseType}, 'WriteKey', writeAPIKeyWFD);
+
+pause (1) % stop the execution 1 second to let the writing in 'Water & Food Dispenser' Channel
+
+% Get Price, Confort to compose a JSON to send to a Talkback
+
+% Reading the las value of 1, 2 y 3 de Price Confort Channel 
+dataWFD = thingSpeakRead(ChannelIDWFD,'Fields',[1,2,3,4,5,6,7,8],'NumPoints',1,'OutputFormat','table','ReadKey', readAPIKeyWFD);
+
+if(dataWFD.DispenseType == 1 || dataWFD.DispenseType == 2 || dataWFD.DispenseType == 3 )
+    if(dataWFD.DispenseType == 1)
+        angleFood = dataWFD.AngleServoFood;
+        secondsFood = dataWFD.OpeningSecondsFood;
+        angleWater = 0;
+        secondsWater = 0;
+    elseif(dataWFD.DispenseType == 2)
+        angleFood = 0;
+        secondsFood = 0;
+        angleWater = dataWFD.AngleServoWater;
+        secondsWater = dataWFD.OpeningSecondsWater;
+    else
+        angleFood = dataWFD.AngleServoFood;
+        secondsFood = dataWFD.OpeningSecondsFood;
+        angleWater = dataWFD.AngleServoWater;
+        secondsWater = dataWFD.OpeningSecondsWater;
+    end
+    
+    % 001 -> Servo Food
+    % 002 -> Servo Water
+    % Composing the JSON that it will be sent to the Talkback
+    %{  
+    %   "dispenser":{  
+    %      "idThing":"179",
+    %      "act":[  
+    %         {  
+    %            "id":"001",
+    %            "type":"servo",
+    %            "ang":1,
+    %            "sec":1
+    %         },
+    %         {  
+    %            "id":"002",
+    %            "type":"servo",
+    %            "ang":2,
+    %            "sec":2
+    %         }
+    %      ]
+    %   }
+    %}
+
+    % Building the string whit the JSON and sending to Talkback
+    jsonTalkBackOUT = strcat('{"dispenser":{"idThing":"179","act":[{"id":"001", "type":"servo","ang":',num2str(angleFood),',"sec":',num2str(secondsFood),'},{"id":"002", "type":"servo","ang":',num2str(angleWater),',"sec":',num2str(secondsWater),'}]}}');
+
+    urlTalkBack = strcat('https://api.thingspeak.com/talkbacks/',TalkBack_ID,'/commands');
+    dataTalkBack = struct('api_key',TalkBack_apikey,'command_string',jsonTalkBackOUT);
+    optionsTalkBack = weboptions('MediaType','application/json');
+    response = webwrite(urlTalkBack,dataTalkBack,optionsTalkBack);
+end

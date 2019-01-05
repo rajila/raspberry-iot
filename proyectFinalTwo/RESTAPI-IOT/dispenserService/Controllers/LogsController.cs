@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using dispenserService.Models;
+using dispenserService.Util;
 
 namespace dispenserService.Controllers
 {
@@ -18,12 +19,16 @@ namespace dispenserService.Controllers
         private dispenserServiceContext db = new dispenserServiceContext();
 
         // GET: api/Logs
+        [Route("api/Logs")]
+        [HttpGet]
         public IQueryable<Log> GetLogs()
         {
             return db.Logs;
         }
 
         // GET: api/Logs/5
+        [Route("api/Logs/{id}", Name = "GetLogById")]
+        [HttpGet]
         [ResponseType(typeof(Log))]
         public async Task<IHttpActionResult> GetLog(int id)
         {
@@ -71,6 +76,7 @@ namespace dispenserService.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+        /*
         // POST: api/Logs
         [ResponseType(typeof(Log))]
         public async Task<IHttpActionResult> PostLog(Log log)
@@ -85,6 +91,75 @@ namespace dispenserService.Controllers
             await db.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = log.LogId }, log);
+        }*/
+
+        // POST: api/Logs
+        [Route("api/Logs")]
+        [HttpPost]
+        [ResponseType(typeof(Log))]
+        public async Task<IHttpActionResult> SaveLog(DispenserForm dispensor)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            DateTime _time = DateTime.Now;
+
+            Log _log = new Log();
+            _log.ThingId = dispensor.ThingId;
+            _log.ActionType = dispensor.ActionType;
+            _log.AmountDailyFood = dispensor.AmountDailyFood;
+            _log.FoodPortion = dispensor.FoodPortion;
+            _log.MilliLiterWater = dispensor.MilliLiterWater;
+            _log.MinPercentWater = dispensor.MinPercentWater;
+            _log.CurrentAmountFood = dispensor.CurrentAmountFood;
+            _log.AmountFoodDownloaded = dispensor.AmountFoodDownloaded;
+            _log.CurrentMilliLiterWater = dispensor.CurrentMilliLiterWater;
+            _log.MilliLiterWaterDownloaded = dispensor.MilliLiterWaterDownloaded;
+            _log.AngleServoFood = dispensor.AngleServoFood;
+            _log.OpeningSecondsFood = dispensor.OpeningSecondsFood;
+            _log.AngleServoWater = dispensor.AngleServoWater;
+            _log.OpeningSecondsWater = dispensor.OpeningSecondsWater;
+            _log.CurrentDateTime = _time;
+
+            db.Logs.Add(_log);
+            await db.SaveChangesAsync();
+
+            if (dispensor.DispenseFood == 1)
+            {
+                FoodDispenser _foodDispenser = new FoodDispenser();
+                _foodDispenser.ThingId = dispensor.ThingId;
+                _foodDispenser.ActionType = dispensor.ActionType;
+                _foodDispenser.AmountDailyFood = dispensor.AmountDailyFood;
+                _foodDispenser.FoodPortion = dispensor.FoodPortion;
+                _foodDispenser.CurrentAmountFood = dispensor.CurrentAmountFood;
+                _foodDispenser.AmountFoodDownloaded = dispensor.AmountFoodDownloaded;
+                _foodDispenser.AngleServoFood = dispensor.AngleServoFood;
+                _foodDispenser.OpeningSecondsFood = dispensor.OpeningSecondsFood;
+                _foodDispenser.CurrentDateTime = _time;
+
+                db.FoodDispensers.Add(_foodDispenser);
+                await db.SaveChangesAsync();
+            }
+
+            if (dispensor.DispenseWater == 1)
+            {
+                WaterDispenser _waterDispenser = new WaterDispenser();
+                _waterDispenser.ThingId = dispensor.ThingId;
+                _waterDispenser.ActionType = dispensor.ActionType;
+                _waterDispenser.MilliLiterWater = dispensor.MilliLiterWater;
+                _waterDispenser.MinPercentWater = dispensor.MinPercentWater;
+                _waterDispenser.CurrentMilliLiterWater = dispensor.CurrentMilliLiterWater;
+                _waterDispenser.MilliLiterWaterDownloaded = dispensor.MilliLiterWaterDownloaded;
+                _waterDispenser.AngleServoWater = dispensor.AngleServoWater;
+                _waterDispenser.OpeningSecondsWater = dispensor.OpeningSecondsWater;
+                _waterDispenser.CurrentDateTime = _time;
+
+                db.WaterDispensers.Add(_waterDispenser);
+                await db.SaveChangesAsync();
+            }
+
+            return CreatedAtRoute("GetLogById", new { id = _log.LogId }, _log);
         }
 
         // DELETE: api/Logs/5
