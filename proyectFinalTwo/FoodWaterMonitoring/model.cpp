@@ -176,8 +176,8 @@ char* Thing::getStringJSON()
 
 void Thing::sendDataThingSpeak()
 {
-  //int _status = ThingSpeak.writeField(_SECRET_CH_ID, 1, getStringJSON(), _SECRET_WRITE_APIKEY);
-  //if( _status == 200 ) Serial.println("Channel update successful.");
-  //else Serial.println("Problem updating channel. HTTP error code " + String(_status));
-  Serial.println(getStringJSON());
+  int _status = ThingSpeak.writeField(_SECRET_CH_ID, 1, getStringJSON(), _SECRET_WRITE_APIKEY);
+  Serial.println(this->_stringJSON);
+  if( _status == 200 ) Serial.println("Channel update successful.");
+  else Serial.println("Problem updating channel. HTTP error code " + String(_status));
 }

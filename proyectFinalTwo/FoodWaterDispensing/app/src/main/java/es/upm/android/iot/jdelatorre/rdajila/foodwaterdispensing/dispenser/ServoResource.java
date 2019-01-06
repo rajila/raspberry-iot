@@ -1,5 +1,6 @@
 package es.upm.android.iot.jdelatorre.rdajila.foodwaterdispensing.dispenser;
 
+import android.os.AsyncTask;
 import android.util.Log;
 
 import java.util.Iterator;
@@ -60,11 +61,25 @@ public class ServoResource extends Thing
                 Actuator _tmpA = ((Actuator)actThing[i]);
                 if( action.getId().compareToIgnoreCase(_tmpA.getId()) == 0 )
                 {
-                    ((IActuator)actThing[i]).act(action.getDsc());
+                    new ExecuteActionTask().execute(actThing[i], action);
                     break;
                 }
             }
         }
+    }
+
+    private class ExecuteActionTask extends AsyncTask<Object, Void, Boolean>
+    {
+        @Override
+        protected Boolean doInBackground(Object... data)
+        {
+            Actuation _action = (Actuation)data[1];
+            ((IActuator)data[0]).act(_action.getDsc());
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean state) {}
     }
 
     @Override

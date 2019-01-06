@@ -66,3 +66,12 @@ Casos de prueba para ejecutar descarga de alimentos
 	M: 23:15:25
 	D: 23:14:45
 	40
+	
+	
+Link ayuda servo:
+	https://github.com/androidthings/contrib-drivers
+	https://github.com/androidthings/drivers-samples/tree/master/pwmservo
+	
+	
+Ejecutar App Android por puerto en serie
+	$ adb shell am start -n "es.upm.android.iot.jdelatorre.rdajila.foodwaterdispensing/es.upm.android.iot.jdelatorre.rdajila.foodwaterdispensing.FoodWaterDispensing" -a android.intent.action.MAIN -c android.intent.category.LAUNCHER
