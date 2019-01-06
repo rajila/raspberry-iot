@@ -243,24 +243,30 @@ if(dataWFD.DispenseType == 1 || dataWFD.DispenseType == 2 || dataWFD.DispenseTyp
     %   "dispenser":{  
     %      "idThing":"179",
     %      "act":[  
-    %         {  
-    %            "id":"001",
-    %            "type":"servo",
-    %            "ang":1,
-    %            "sec":1
+    %         {
+    %            "id": "001",
+    %            "type": "rotate",
+    %            "dsc": 
+    %             {
+    %                 "ang": 0,
+    %                 "sec": 0
+    %             }
     %         },
     %         {  
     %            "id":"002",
-    %            "type":"servo",
-    %            "ang":2,
-    %            "sec":2
+    %            "type":"rotate",
+    %            "dsc": 
+    %             {
+    %                 "ang": 80,
+    %                 "sec": 5
+    %             }
     %         }
     %      ]
     %   }
     %}
 
     % Building the string whit the JSON and sending to Talkback
-    jsonTalkBackOUT = strcat('{"dispenser":{"idThing":"179","act":[{"id":"001", "type":"servo","ang":',num2str(angleFood),',"sec":',num2str(secondsFood),'},{"id":"002", "type":"servo","ang":',num2str(angleWater),',"sec":',num2str(secondsWater),'}]}}');
+    jsonTalkBackOUT = strcat('{"dispenser":{"idThing":"179","act":[{"id":"001", "type":"rotate", "dsc":{"ang":',num2str(angleFood),',"sec":',num2str(secondsFood),'}},{"id":"002", "type":"rotate", "dsc":{"ang":',num2str(angleWater),',"sec":',num2str(secondsWater),'}}]}}');
 
     urlTalkBack = strcat('https://api.thingspeak.com/talkbacks/',TalkBack_ID,'/commands');
     dataTalkBack = struct('api_key',TalkBack_apikey,'command_string',jsonTalkBackOUT);

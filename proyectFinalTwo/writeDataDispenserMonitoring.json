@@ -1,0 +1,20 @@
+﻿{
+  "dispenser": {
+    "idThing": "1234",
+    "obs": {
+      "time": "2018-12-31T11:59:29Z",
+      "sensor": [
+        {
+          "id": "wtl",
+          "obProp": "int",
+          "out": 500
+        },
+        {
+          "id": "dgb",
+          "obProp": "int",
+          "out": 250
+        }
+      ]
+    }
+  }
+}
