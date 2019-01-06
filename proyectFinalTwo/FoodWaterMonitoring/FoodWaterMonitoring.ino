@@ -30,3 +30,4 @@ void loop()
   _thing.sendDataThingSpeak();
   delay(_DELAY_SEND_DATA);
 }
+
