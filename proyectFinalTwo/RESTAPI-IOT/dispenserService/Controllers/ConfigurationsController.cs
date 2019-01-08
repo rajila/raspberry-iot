@@ -38,6 +38,7 @@ namespace dispenserService.Controllers
             _dispenser.ListWaterDispenser = db.WaterDispensers.Where(s => s.CurrentDateTime.Year == _time.Year &&
                                                    s.CurrentDateTime.Month == _time.Month &&
                                                    s.CurrentDateTime.Day == _time.Day).ToList();
+            _dispenser.ListLastLog = db.Logs.OrderByDescending(s => s.CurrentDateTime).Take(1).ToList();
             return _dispenser;
         }
 

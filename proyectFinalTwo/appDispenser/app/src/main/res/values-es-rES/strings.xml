@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Dispensador de Comida y Agua</string>
+    <string name="indeterminate_mode">Modo Indeterminado</string>
+    <string name="show_on_github">Mostrar en GitHub</string>
+    <string name="pay_me_a_beer">Pagame por una birra</string>
+    <string name="offer_me_a_beer">Ofréceme una cerveza si esa aplicación te ha ayudado a recompensarme.</string>
+    <string name="lblFoodDaily">Comida Diaria</string>
+    <string name="lblFoodPortion">Porción de Comida</string>
+    <string name="lblWaterCurrent">Agua</string>
+</resources>

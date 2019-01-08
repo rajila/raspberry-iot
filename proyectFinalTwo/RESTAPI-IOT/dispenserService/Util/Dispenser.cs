@@ -15,5 +15,7 @@ namespace dispenserService.Util
         public List<FoodDispenser> ListFoodDispenser { get; set; }
 
         public List<WaterDispenser> ListWaterDispenser { get; set; }
+
+        public List<Log> ListLastLog { get; set; }
     }
 }

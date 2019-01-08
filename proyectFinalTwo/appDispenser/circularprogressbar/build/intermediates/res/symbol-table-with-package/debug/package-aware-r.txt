@@ -1,0 +1,11 @@
+com.mikhaellopez.circularprogressbar
+attr cpb_background_progressbar_color
+attr cpb_background_progressbar_width
+attr cpb_indeterminate_mode
+attr cpb_progress
+attr cpb_progress_max
+attr cpb_progressbar_color
+attr cpb_progressbar_width
+dimen default_background_stroke_width
+dimen default_stroke_width
+styleable CircularProgressBar cpb_background_progressbar_color cpb_background_progressbar_width cpb_indeterminate_mode cpb_progress cpb_progress_max cpb_progressbar_color cpb_progressbar_width
