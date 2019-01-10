@@ -8,9 +8,7 @@ namespace dispenserService.Util
 {
     public class Dispenser
     {
-        public List<Configuration> ListConfiguration { get; set; }
-
-        public List<FoodHour> ListFoodHour { get; set; }
+        public List<ConfigurationParameter> ListConfigurationParameter { get; set; }
 
         public List<FoodDispenser> ListFoodDispenser { get; set; }
 

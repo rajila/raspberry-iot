@@ -86,6 +86,7 @@ namespace dispenserService.Controllers
             return CreatedAtRoute("DefaultApi", new { id = foodDispenser.FoodDispenserId }, foodDispenser);
         }
 
+        /*
         // DELETE: api/FoodDispensers/5
         [ResponseType(typeof(FoodDispenser))]
         public async Task<IHttpActionResult> DeleteFoodDispenser(int id)
@@ -100,6 +101,22 @@ namespace dispenserService.Controllers
             await db.SaveChangesAsync();
 
             return Ok(foodDispenser);
+        }
+        */
+
+        // DELETE: api/FoodDispensers
+        [Route("api/Configurations")]
+        [HttpDelete]
+        [ResponseType(typeof(FoodDispenser))]
+        public async Task<IHttpActionResult> DeleteAllFoodDispenser()
+        {
+            foreach (FoodDispenser _dataFD in db.FoodDispensers)
+            {
+                db.FoodDispensers.Remove(_dataFD);
+                await db.SaveChangesAsync();
+            }
+
+            return Ok();
         }
 
         protected override void Dispose(bool disposing)

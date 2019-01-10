@@ -13,7 +13,7 @@ namespace dispenserService.Models
         public string ThingId { get; set; }
         public string ActionType { get; set; }
         public double AmountDailyFood { get; set; }
-        public double FoodPortion { get; set; }
+        public double AmountBowlFood { get; set; }
         public double CurrentAmountFood { get; set; }
         public double AmountFoodDownloaded { get; set; }
         public int AngleServoFood { get; set; }

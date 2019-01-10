@@ -79,5 +79,7 @@ C:\Users\RONALD\Desktop\raspberry-iot\proyectFinalTwo\RESTAPI-IOT\dispenserServi
 C:\Users\RONALD\Desktop\raspberry-iot\proyectFinalTwo\RESTAPI-IOT\dispenserService\obj\Debug\dispenserService.dll
 C:\Users\RONALD\Desktop\raspberry-iot\proyectFinalTwo\RESTAPI-IOT\dispenserService\obj\Debug\dispenserService.pdb
 C:\Users\RONALD\Desktop\raspberry-iot\proyectFinalTwo\RESTAPI-IOT\dispenserService\obj\Debug\dispenserService.Migrations.segunda.resources
-C:\Users\RONALD\Desktop\raspberry-iot\proyectFinalTwo\RESTAPI-IOT\dispenserService\obj\Debug\dispenserService.csprojResolveAssemblyReference.cache
 C:\Users\RONALD\Desktop\raspberry-iot\proyectFinalTwo\RESTAPI-IOT\dispenserService\obj\Debug\dispenserService.Migrations.tercera.resources
+C:\Users\RONALD\Desktop\raspberry-iot\proyectFinalTwo\RESTAPI-IOT\dispenserService\obj\Debug\dispenserService.Migrations.cuarta.resources
+C:\Users\RONALD\Desktop\raspberry-iot\proyectFinalTwo\RESTAPI-IOT\dispenserService\obj\Debug\dispenserService.Migrations.quinta.resources
+C:\Users\RONALD\Desktop\raspberry-iot\proyectFinalTwo\RESTAPI-IOT\dispenserService\obj\Debug\dispenserService.Migrations.sexta.resources

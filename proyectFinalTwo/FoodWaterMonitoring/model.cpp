@@ -176,6 +176,7 @@ char* Thing::getStringJSON()
 
 void Thing::sendDataThingSpeak()
 {
+  //getStringJSON();
   int _status = ThingSpeak.writeField(_SECRET_CH_ID, 1, getStringJSON(), _SECRET_WRITE_APIKEY);
   Serial.println(this->_stringJSON);
   if( _status == 200 ) Serial.println("Channel update successful.");

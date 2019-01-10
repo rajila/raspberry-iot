@@ -12,10 +12,10 @@ namespace dispenserService.Models
         public int WaterDispenserId { get; set; }
         public string ThingId { get; set; }
         public string ActionType { get; set; }
-        public double MilliLiterWater { get; set; }
-        public int MinPercentWater { get; set; }
-        public int CurrentMilliLiterWater { get; set; }
-        public double MilliLiterWaterDownloaded { get; set; }
+        public double AmountDailyWater { get; set; }
+        public double AmountBowlWater { get; set; }
+        public double CurrentAmountWater { get; set; }
+        public double AmountWaterDownloaded { get; set; }
         public int AngleServoWater { get; set; }
         public int OpeningSecondsWater { get; set; }
         [DataType(DataType.DateTime)]

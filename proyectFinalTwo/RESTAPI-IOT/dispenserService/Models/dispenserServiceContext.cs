@@ -19,11 +19,9 @@ namespace dispenserService.Models
         {
         }
 
-        public System.Data.Entity.DbSet<dispenserService.Models.Configuration> Configurations { get; set; }
+        public System.Data.Entity.DbSet<dispenserService.Models.ConfigurationParameter> ConfigurationParameters { get; set; }
 
         public System.Data.Entity.DbSet<dispenserService.Models.FoodDispenser> FoodDispensers { get; set; }
-
-        public System.Data.Entity.DbSet<dispenserService.Models.FoodHour> FoodHours { get; set; }
 
         public System.Data.Entity.DbSet<dispenserService.Models.Log> Logs { get; set; }
 

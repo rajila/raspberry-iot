@@ -129,9 +129,8 @@
   <ItemGroup>
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\ConfigurationsController.cs" />
+    <Compile Include="Controllers\ConfigurationParametersController.cs" />
     <Compile Include="Controllers\FoodDispensersController.cs" />
-    <Compile Include="Controllers\FoodHoursController.cs" />
     <Compile Include="Controllers\LogsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\WaterDispensersController.cs" />
@@ -150,11 +149,22 @@
     <Compile Include="Migrations\201901041801202_tercera.Designer.cs">
       <DependentUpon>201901041801202_tercera.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901091545403_cuarta.cs" />
+    <Compile Include="Migrations\201901091545403_cuarta.Designer.cs">
+      <DependentUpon>201901091545403_cuarta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901091705425_quinta.cs" />
+    <Compile Include="Migrations\201901091705425_quinta.Designer.cs">
+      <DependentUpon>201901091705425_quinta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901101112106_sexta.cs" />
+    <Compile Include="Migrations\201901101112106_sexta.Designer.cs">
+      <DependentUpon>201901101112106_sexta.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\Configuration.cs" />
+    <Compile Include="Models\ConfigurationParameter.cs" />
     <Compile Include="Models\dispenserServiceContext.cs" />
     <Compile Include="Models\FoodDispenser.cs" />
-    <Compile Include="Models\FoodHour.cs" />
     <Compile Include="Models\Log.cs" />
     <Compile Include="Models\WaterDispenser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -187,6 +197,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901041801202_tercera.resx">
       <DependentUpon>201901041801202_tercera.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901091545403_cuarta.resx">
+      <DependentUpon>201901091545403_cuarta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901091705425_quinta.resx">
+      <DependentUpon>201901091705425_quinta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901101112106_sexta.resx">
+      <DependentUpon>201901101112106_sexta.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
