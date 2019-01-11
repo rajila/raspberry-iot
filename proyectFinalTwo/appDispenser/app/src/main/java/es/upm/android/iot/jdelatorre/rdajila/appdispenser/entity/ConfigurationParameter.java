@@ -3,7 +3,7 @@ package es.upm.android.iot.jdelatorre.rdajila.appdispenser.entity;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Configuration
+public class ConfigurationParameter
 {
     @SerializedName("ConfigurationId")
     @Expose
@@ -13,17 +13,17 @@ public class Configuration
     @Expose
     private double AmountDailyFood;
 
-    @SerializedName("MilliLiterWater")
+    @SerializedName("AmountBowlFoodWater")
     @Expose
-    private double MilliLiterWater;
+    private double AmountBowlFoodWater;
 
-    @SerializedName("MinPercentWater")
+    @SerializedName("AmountDailyWater")
     @Expose
-    private int MinPercentWater;
+    private double AmountDailyWater;
 
     @SerializedName("CurrentDateTime")
     @Expose
-    public String CurrentDateTime;
+    private String CurrentDateTime;
 
     public int getConfigurationId() {
         return ConfigurationId;
@@ -41,20 +41,20 @@ public class Configuration
         AmountDailyFood = amountDailyFood;
     }
 
-    public double getMilliLiterWater() {
-        return MilliLiterWater;
+    public double getAmountBowlFoodWater() {
+        return AmountBowlFoodWater;
     }
 
-    public void setMilliLiterWater(double milliLiterWater) {
-        MilliLiterWater = milliLiterWater;
+    public void setAmountBowlFoodWater(double amountBowlFoodWater) {
+        AmountBowlFoodWater = amountBowlFoodWater;
     }
 
-    public int getMinPercentWater() {
-        return MinPercentWater;
+    public double getAmountDailyWater() {
+        return AmountDailyWater;
     }
 
-    public void setMinPercentWater(int minPercentWater) {
-        MinPercentWater = minPercentWater;
+    public void setAmountDailyWater(double amountDailyWater) {
+        AmountDailyWater = amountDailyWater;
     }
 
     public String getCurrentDateTime() {

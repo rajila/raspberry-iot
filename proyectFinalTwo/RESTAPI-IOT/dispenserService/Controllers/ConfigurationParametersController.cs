@@ -44,6 +44,8 @@ namespace dispenserService.Controllers
         }
 
         // GET: api/ConfigurationParameters/5
+        [Route("api/ConfigurationParameters/{id}", Name = "GetConfigurationParametersById")]
+        [HttpGet]
         [ResponseType(typeof(ConfigurationParameter))]
         public async Task<IHttpActionResult> GetConfigurationParameter(int id)
         {
@@ -91,8 +93,10 @@ namespace dispenserService.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        /*
+
         // POST: api/ConfigurationParameters
+        [Route("api/ConfigurationParameters")]
+        [HttpPost]
         [ResponseType(typeof(ConfigurationParameter))]
         public async Task<IHttpActionResult> PostConfigurationParameter(ConfigurationParameter configurationParameter)
         {
@@ -101,12 +105,43 @@ namespace dispenserService.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Configurations.Add(configurationParameter);
-            await db.SaveChangesAsync();
+            ConfigurationParameter _data = db.ConfigurationParameters.FirstOrDefault();
+            DateTime _time = DateTime.Now;
 
-            return CreatedAtRoute("DefaultApi", new { id = configurationParameter.ConfigurationId }, configurationParameter);
+            if (_data == null)
+            {
+                configurationParameter.CurrentDateTime = _time;
+
+                db.ConfigurationParameters.Add(configurationParameter);
+                await db.SaveChangesAsync();
+                _data = configurationParameter;
+            }
+            else {
+                _data.AmountDailyFood = configurationParameter.AmountDailyFood;
+                _data.AmountDailyWater = configurationParameter.AmountDailyWater;
+                _data.AmountBowlFoodWater = configurationParameter.AmountBowlFoodWater;
+                _data.CurrentDateTime = _time;
+                db.Entry(_data).State = EntityState.Modified;
+                try
+                {
+                    await db.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ConfigurationParameterExists(_data.ConfigurationId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+            }
+
+            return CreatedAtRoute("GetConfigurationParametersById", new { id = _data.ConfigurationId }, _data);
         }
-
+        /*
         // DELETE: api/ConfigurationParameters/5
         [ResponseType(typeof(ConfigurationParameter))]
         public async Task<IHttpActionResult> DeleteConfigurationParameter(int id)

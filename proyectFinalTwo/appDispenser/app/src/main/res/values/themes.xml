@@ -6,6 +6,21 @@
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">@color/accent</item>
+        <!--<item name="android:textColorHint">@color/water</item>-->
     </style>
 
+    <style name="food_appearance" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/food</item>
+        <item name="android:textSize">15sp</item>
+        <!-- cursor y línea con foco-->
+    </style>
+
+    <style name="water_appearance" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/water</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="bowl_appearance" parent="@android:style/TextAppearance">
+        <item name="android:textSize">15sp</item>
+    </style>
 </resources>

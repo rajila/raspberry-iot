@@ -1,5 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -7,22 +8,25 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="50">
+        android:layout_weight="50"
+        android:background="@color/foodContent">
 
         <TextView
             android:id="@+id/_lblDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="10dp"
             android:text=""
             android:textAlignment="viewEnd"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="15dp"/>
+            android:textColor="@color/primary_dark"
+            android:textSize="16sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="25dp"
             android:gravity="fill_horizontal"
             android:orientation="horizontal">
 
@@ -37,8 +41,10 @@
                     android:id="@+id/_lblFoodDaily"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/lblFoodDaily"
+                    android:layout_marginBottom="5dp"
+                    android:text="@string/lblFoodDispensed"
                     android:textAlignment="center"
+                    android:textColor="@color/food"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -55,10 +61,12 @@
                     android:id="@+id/_valueFoodDaily"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:text="@string/valFood"
                     android:textAlignment="center"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/primary"
+                    android:textSize="16sp" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -72,8 +80,10 @@
                     android:id="@+id/_lblFoodPortion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/lblFoodPortion"
+                    android:layout_marginBottom="5dp"
+                    android:text="@string/lblFoodConsumed"
                     android:textAlignment="center"
+                    android:textColor="@color/food"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -90,10 +100,11 @@
                     android:id="@+id/_valueFoodPortion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:text="@string/valFood"
                     android:textAlignment="center"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/primary"
+                    android:textSize="16sp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -102,41 +113,129 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="50">
+        android:layout_weight="50"
+        android:background="@color/waterContent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:gravity="fill_horizontal"
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/_lblWaterCurrent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/lblWaterCurrent"
-                android:textAlignment="center"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="50"
+                android:gravity="center"
+                android:orientation="vertical">
 
-            <com.mikhaellopez.circularprogressbar.CircularProgressBar
-                android:id="@+id/_cirWaterCurrent"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                app:cpb_background_progressbar_color="#b6bbd8"
-                app:cpb_background_progressbar_width="10dp"
-                app:cpb_progressbar_color="#3f51b5"
-                app:cpb_progressbar_width="20dp" />
+                <TextView
+                    android:id="@+id/_lblWaterCurrent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lblWaterDispensed"
+                    android:textAlignment="center"
+                    android:textColor="@color/water"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="5dp"/>
 
-            <TextView
-                android:id="@+id/_valueWaterCurrent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/valWater"
-                android:textAlignment="center"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                    android:id="@+id/_cirWaterCurrent"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    app:cpb_background_progressbar_color="#b6bbd8"
+                    app:cpb_background_progressbar_width="10dp"
+                    app:cpb_progressbar_color="#3f51b5"
+                    app:cpb_progressbar_width="20dp" />
+
+                <TextView
+                    android:id="@+id/_valueWaterCurrent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/valWater"
+                    android:textAlignment="center"
+                    android:textColor="@color/primary"
+                    android:textSize="16sp"
+                    android:layout_marginTop="5dp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="50"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/_lblWaterConsumed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lblWaterConsumed"
+                    android:textAlignment="center"
+                    android:textColor="@color/water"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="5dp"/>
+
+                <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                    android:id="@+id/_cirWaterConsumed"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    app:cpb_background_progressbar_color="#b6bbd8"
+                    app:cpb_background_progressbar_width="10dp"
+                    app:cpb_progressbar_color="#3f51b5"
+                    app:cpb_progressbar_width="20dp" />
+
+                <TextView
+                    android:id="@+id/_valueWaterConsumed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/valWater"
+                    android:textAlignment="center"
+                    android:textColor="@color/primary"
+                    android:textSize="16sp"
+                    android:layout_marginTop="5dp"/>
+            </LinearLayout>
         </LinearLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/_btnFood"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom|end"
+            android:layout_marginStart="@dimen/fab_margin"
+            android:layout_marginTop="@dimen/fab_margin"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="@dimen/fab_margin"
+            android:layout_toStartOf="@id/_btnWater"
+            android:backgroundTint="@color/food"
+            android:tint="@android:color/white"
+            android:visibility="gone"
+            app:backgroundTint="@color/food"
+            app:fabSize="normal"
+            app:srcCompat="@drawable/food"
+            tools:ignore="VectorDrawableCompat" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/_btnWater"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom|center"
+            android:layout_marginStart="@dimen/fab_margin"
+            android:layout_marginTop="@dimen/fab_margin"
+            android:layout_marginEnd="110dp"
+            android:layout_marginBottom="@dimen/fab_margin"
+            android:backgroundTint="@color/water"
+            android:tint="@android:color/white"
+            android:visibility="gone"
+            app:backgroundTint="@color/water"
+            app:fabSize="normal"
+            app:srcCompat="@drawable/water"
+            tools:ignore="VectorDrawableCompat" />
+
     </RelativeLayout>
 
 </LinearLayout>

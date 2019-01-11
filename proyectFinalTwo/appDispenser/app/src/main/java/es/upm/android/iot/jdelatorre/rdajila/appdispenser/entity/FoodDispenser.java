@@ -21,9 +21,9 @@ public class FoodDispenser
     @Expose
     private double AmountDailyFood;
 
-    @SerializedName("FoodPortion")
+    @SerializedName("AmountBowlFood")
     @Expose
-    private double FoodPortion;
+    private double AmountBowlFood;
 
     @SerializedName("CurrentAmountFood")
     @Expose
@@ -77,12 +77,12 @@ public class FoodDispenser
         AmountDailyFood = amountDailyFood;
     }
 
-    public double getFoodPortion() {
-        return FoodPortion;
+    public double getAmountBowlFood() {
+        return AmountBowlFood;
     }
 
-    public void setFoodPortion(double foodPortion) {
-        FoodPortion = foodPortion;
+    public void setAmountBowlFood(double amountBowlFood) {
+        AmountBowlFood = amountBowlFood;
     }
 
     public double getCurrentAmountFood() {

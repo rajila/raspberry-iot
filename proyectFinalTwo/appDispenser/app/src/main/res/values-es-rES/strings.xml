@@ -5,7 +5,19 @@
     <string name="show_on_github">Mostrar en GitHub</string>
     <string name="pay_me_a_beer">Pagame por una birra</string>
     <string name="offer_me_a_beer">Ofréceme una cerveza si esa aplicación te ha ayudado a recompensarme.</string>
-    <string name="lblFoodDaily">Comida Diaria</string>
-    <string name="lblFoodPortion">Porción de Comida</string>
-    <string name="lblWaterCurrent">Agua</string>
+    <string name="lblFoodConsumed">Alimentos consumidos</string>
+    <string name="lblWaterConsumed">Agua consumida</string>
+    <string name="lblFoodDispensed">Alimentos dispensados</string>
+    <string name="lblWaterDispensed">Agua dispensada</string>
+    <string name="action_parameters">Párametros de Configuración</string>
+    <string name="hint_food">Cantidad de alimento</string>
+    <string name="hint_water">Cantidad de agua</string>
+    <string name="hint_bowl">Cantidad del recipiente</string>
+    <string name="lblBowlConfig">Capacidad del bol</string>
+    <string name="lblWaterBowlConfig">Cantidad diaria de agua (ml)</string>
+    <string name="lblFoodBowlConfig">Cantidad diaria de alimento (g)</string>
+    <string name="lblScreenConfig">Configuración de Parámetros</string>
+    <string name="action_save">Guardar</string>
+    <string name="msn_save_data">Datos guardados exitosamente</string>
+    <string name="error_save_data">Error al guardar los datos</string>
 </resources>

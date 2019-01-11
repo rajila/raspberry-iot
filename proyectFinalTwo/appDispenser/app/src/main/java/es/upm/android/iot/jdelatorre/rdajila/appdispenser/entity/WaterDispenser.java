@@ -17,21 +17,21 @@ public class WaterDispenser
     @Expose
     private String ActionType;
 
-    @SerializedName("MilliLiterWater")
+    @SerializedName("AmountDailyWater")
     @Expose
-    private double MilliLiterWater;
+    private double AmountDailyWater;
 
-    @SerializedName("MinPercentWater")
+    @SerializedName("AmountBowlWater")
     @Expose
-    private int MinPercentWater;
+    private double AmountBowlWater;
 
-    @SerializedName("CurrentMilliLiterWater")
+    @SerializedName("CurrentAmountWater")
     @Expose
-    private int CurrentMilliLiterWater;
+    private double CurrentAmountWater;
 
-    @SerializedName("MilliLiterWaterDownloaded")
+    @SerializedName("AmountWaterDownloaded")
     @Expose
-    private double MilliLiterWaterDownloaded;
+    private double AmountWaterDownloaded;
 
     @SerializedName("AngleServoWater")
     @Expose
@@ -69,36 +69,36 @@ public class WaterDispenser
         ActionType = actionType;
     }
 
-    public double getMilliLiterWater() {
-        return MilliLiterWater;
+    public double getAmountDailyWater() {
+        return AmountDailyWater;
     }
 
-    public void setMilliLiterWater(double milliLiterWater) {
-        MilliLiterWater = milliLiterWater;
+    public void setAmountDailyWater(double amountDailyWater) {
+        AmountDailyWater = amountDailyWater;
     }
 
-    public int getMinPercentWater() {
-        return MinPercentWater;
+    public double getAmountBowlWater() {
+        return AmountBowlWater;
     }
 
-    public void setMinPercentWater(int minPercentWater) {
-        MinPercentWater = minPercentWater;
+    public void setAmountBowlWater(double amountBowlWater) {
+        AmountBowlWater = amountBowlWater;
     }
 
-    public int getCurrentMilliLiterWater() {
-        return CurrentMilliLiterWater;
+    public double getCurrentAmountWater() {
+        return CurrentAmountWater;
     }
 
-    public void setCurrentMilliLiterWater(int currentMilliLiterWater) {
-        CurrentMilliLiterWater = currentMilliLiterWater;
+    public void setCurrentAmountWater(double currentAmountWater) {
+        CurrentAmountWater = currentAmountWater;
     }
 
-    public double getMilliLiterWaterDownloaded() {
-        return MilliLiterWaterDownloaded;
+    public double getAmountWaterDownloaded() {
+        return AmountWaterDownloaded;
     }
 
-    public void setMilliLiterWaterDownloaded(double milliLiterWaterDownloaded) {
-        MilliLiterWaterDownloaded = milliLiterWaterDownloaded;
+    public void setAmountWaterDownloaded(double amountWaterDownloaded) {
+        AmountWaterDownloaded = amountWaterDownloaded;
     }
 
     public int getAngleServoWater() {

@@ -7,13 +7,9 @@ import java.util.List;
 
 public class Dispenser
 {
-    @SerializedName("ListConfiguration")
+    @SerializedName("ListConfigurationParameter")
     @Expose
-    private List<Configuration> ListConfiguration;
-
-    @SerializedName("ListFoodHour")
-    @Expose
-    private List<FoodHour> ListFoodHour;
+    private List<ConfigurationParameter> ListConfigurationParameter;
 
     @SerializedName("ListFoodDispenser")
     @Expose
@@ -27,20 +23,12 @@ public class Dispenser
     @Expose
     private List<LogDispenser> ListLastLog;
 
-    public List<Configuration> getListConfiguration() {
-        return ListConfiguration;
+    public List<ConfigurationParameter> getListConfigurationParameter() {
+        return ListConfigurationParameter;
     }
 
-    public void setListConfiguration(List<Configuration> listConfiguration) {
-        ListConfiguration = listConfiguration;
-    }
-
-    public List<FoodHour> getListFoodHour() {
-        return ListFoodHour;
-    }
-
-    public void setListFoodHour(List<FoodHour> listFoodHour) {
-        ListFoodHour = listFoodHour;
+    public void setListConfigurationParameter(List<ConfigurationParameter> listConfigurationParameter) {
+        ListConfigurationParameter = listConfigurationParameter;
     }
 
     public List<FoodDispenser> getListFoodDispenser() {
