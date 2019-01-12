@@ -10,7 +10,8 @@ import java.io.IOException;
 import java.util.Properties;
 
 import es.upm.android.iot.jdelatorre.rdajila.foodwaterdispensing.dispenser.ServoResource;
-import es.upm.android.iot.jdelatorre.rdajila.foodwaterdispensing.hwplatform.ServoRC;
+import es.upm.android.iot.jdelatorre.rdajila.foodwaterdispensing.hwplatform.LedThing;
+import es.upm.android.iot.jdelatorre.rdajila.foodwaterdispensing.hwplatform.ServoThing;
 import es.upm.android.iot.jdelatorre.rdajila.foodwaterdispensing.util.Constant;
 import es.upm.dte.iot.Tag;
 import es.upm.dte.iot.platform.IIoTPlatform;
@@ -28,8 +29,8 @@ public class FoodWaterDispensing extends Activity
     private HandlerThread mHandlerThread;
     private Handler mHandler;
 
-    ServoRC servoFood;
-    ServoRC servoWater;
+    ServoThing servoFood;
+    ServoThing servoWater;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -41,8 +42,8 @@ public class FoodWaterDispensing extends Activity
 
         platform = IoTPlatformFactory.getInstance("ThingSpeak", properties);
         servoR = new ServoResource();
-        servoFood = new ServoRC(Constant.SERVO_DIGITAL_BALANCE_ID, Constant.PIN_SERVO_DIGITALBALANCE);
-        servoWater = new ServoRC(Constant.SERVO_WATER_ID, Constant.PIN_SERVO_WATER);
+        servoFood = new ServoThing(Constant.SERVO_DIGITAL_BALANCE_ID, Constant.PIN_SERVO_DIGITALBALANCE);
+        servoWater = new ServoThing(Constant.SERVO_WATER_ID, Constant.PIN_SERVO_WATER);
 
         servoR.attach(servoFood);
         servoR.attach(servoWater);
@@ -62,7 +63,7 @@ public class FoodWaterDispensing extends Activity
             try
             {
                 String action = platform.getNextAction();
-                //String action = "{\"dispenser\":{\"idThing\":\"179\",\"act\":[{\"id\":\"001\",\"type\":\"rotate\",\"dsc\":{\"ang\":0,\"sec\":0}},{\"id\":\"002\",\"type\":\"rotate\",\"dsc\":{\"ang\":90,\"sec\":5}}]}}";
+                //String action = "{\"dispenser\":{\"idThing\":\"179\",\"act\":[{\"id\":\"001\",\"type\":\"rotate\",\"dsc\":{\"ang\":10,\"sec\":5}},{\"id\":\"002\",\"type\":\"rotate\",\"dsc\":{\"ang\":10,\"sec\":5}}]}}";
                 if ( action == null ) // action
                 {
                     Log.i(TAG,"Sin Datos");

@@ -7,7 +7,7 @@ Scripts DB
 	UPDATE dbo.FoodHours SET Hour = '19:55:00' WHERE FoodHourId = 1;
 	
 	select * from dbo.Configurations
-
+	
 	INSERT INTO dbo.Configurations (AmountDailyFood,MinPercentWater,CurrentDateTime,MilliLiterWater) 
 	VALUES (1500, 40, '2019-01-04 09:00:00', 2000);
 	
@@ -70,3 +70,6 @@ Link ayuda servo:
 	
 Ejecutar App Android por puerto en serie
 	$ adb shell am start -n "es.upm.android.iot.jdelatorre.rdajila.foodwaterdispensing/es.upm.android.iot.jdelatorre.rdajila.foodwaterdispensing.FoodWaterDispensing" -a android.intent.action.MAIN -c android.intent.category.LAUNCHER
+	
+	$ adb shell am start -n "es.upm.android.iot.jdelatorre.rdajila.foodwaterdispensing/es.upm.android.iot.jdelatorre.rdajila.foodwaterdispensing.FoodWaterDispensing" -a android.intent.action.MAIN -c android.intent.category.LAUNCHER
+	

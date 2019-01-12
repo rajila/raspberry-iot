@@ -10,29 +10,39 @@ import com.google.android.things.contrib.driver.pwmservo.Servo;
 import java.io.IOException;
 
 
-public class ServoRC extends Actuator
+public class ServoThing extends Actuator
 {
-    private static final String TAG = ServoRC.class.getSimpleName();
+    private static final String TAG = ServoThing.class.getSimpleName();
 
     private Servo _servo;
 
     private synchronized void servoUpdateAngleRotation (int angle, int seconds)
     {
+        final int _seconds = seconds;
+        final int _angle = angle;
+
         if (_servo == null) return;
 
-        try
-        {
-            _servo.setAngle(angle);
-            Thread.sleep(seconds*1000);
-            _servo.setAngle(Constant.ANGLE_MIN);
-        } catch (IOException e) {
-            Log.e(TAG, "Error setting Servo angle");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        new Thread(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        try
+                        {
+                            _servo.setAngle(_angle);
+                            Thread.sleep(_seconds*1000);
+                            _servo.setAngle(Constant.ANGLE_MIN);
+                        } catch (IOException e) {
+                            Log.e(TAG, "Error setting Servo angle");
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+        ).start();
     }
 
-    public ServoRC(String id, String pin)
+    public ServoThing(String id, String pin)
     {
         super(id,ActuatorType.miniServo);
 
