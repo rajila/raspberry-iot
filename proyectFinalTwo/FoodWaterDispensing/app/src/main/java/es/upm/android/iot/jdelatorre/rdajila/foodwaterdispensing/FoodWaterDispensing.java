@@ -63,7 +63,7 @@ public class FoodWaterDispensing extends Activity
             try
             {
                 String action = platform.getNextAction();
-                //String action = "{\"dispenser\":{\"idThing\":\"179\",\"act\":[{\"id\":\"001\",\"type\":\"rotate\",\"dsc\":{\"ang\":10,\"sec\":5}},{\"id\":\"002\",\"type\":\"rotate\",\"dsc\":{\"ang\":10,\"sec\":5}}]}}";
+                //String action = "{\"dispenser\":{\"idThing\":\"179\",\"act\":[{\"id\":\"001\",\"type\":\"rotate\",\"dsc\":{\"ang\":75,\"sec\":5}},{\"id\":\"002\",\"type\":\"rotate\",\"dsc\":{\"ang\":115,\"sec\":5}}]}}";
                 if ( action == null ) // action
                 {
                     Log.i(TAG,"Sin Datos");

@@ -14,8 +14,8 @@ public final class Constant
     public static final int DELAY_REQUEST = 25000;
 
     public static final String THING_ID = "179";
-    public static final String SERVO_DIGITAL_BALANCE_ID = "001";
-    public static final String SERVO_WATER_ID = "002";
+    public static final String SERVO_DIGITAL_BALANCE_ID = "002";
+    public static final String SERVO_WATER_ID = "001";
 
     public static final String PINRED = "BCM5"; // NUM PIN 29
     public static final String PINGREEN = "BCM6"; // NUM PIN 31
